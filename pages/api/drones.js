@@ -25,7 +25,8 @@ export default async function handler(req, res) {
       Math.pow(250 * 100 * 10 - dron.positionX, 2) +
         Math.pow(250 * 100 * 10 - dron.positionY, 2),
     );
-    if (hypot < 100 * 100 * 10) {
+    if (hypot < 100 * 100 * 10) { // <- 100m * 100cm * 10mm -- that is radius of `no drone zone`
+      dron.newDistance = (hypot / 10 / 100).toFixed(2);
       return dron;
     }
   });
@@ -34,9 +35,25 @@ export default async function handler(req, res) {
     const responsePilot = await fetch(`https://assignments.reaktor.com/birdnest/pilots/${dron.serialNumber}`);
     const resultPilot = await responsePilot.json();
     resultPilot.atr_snapshotTimestamp = atr_snapshotTimestamp;
+    // resultPilot.distance = dron.distance;
+    const newDistance = dron.newDistance;
+    let oldDistance = dron.newDistance;
+    resultPilot.status = '';
+    resultPilot.previusDistance = '';
     if (map.has(resultPilot.pilotId)) {
+        oldDistance = map.get(resultPilot.pilotId).distance;
         map.delete(resultPilot.pilotId);
     }
+    if (newDistance < oldDistance) {
+      resultPilot.previusDistance = String(oldDistance);  
+      resultPilot.distance = newDistance;
+      resultPilot.status = 'updated';
+    } else {
+      resultPilot.previusDistance = '';  
+      resultPilot.distance = oldDistance;
+      resultPilot.status = '';
+    }
+
     map.set(resultPilot.pilotId, resultPilot);
     return resultPilot;
   }));
@@ -50,6 +67,5 @@ export default async function handler(req, res) {
         pilots.push(pilot);        
     }
   }
-
   res.status(200).json({ pilots, atr_snapshotTimestamp });
 }

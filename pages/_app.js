@@ -1,22 +1,13 @@
-import React from 'react'
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import Layout from '../components/Layout'
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
-  // const queryClient = React.useRef(new QueryClient())
-
-  /*
+const MyApp = ({ Component, pageProps }) => {
   return (
-    <QueryClientProvider client={queryClient.current}>
-      <Hydrate state={pageProps.dehydratedState}>
+    <Layout>
+      <main>
         <Component {...pageProps} />
-      </Hydrate>
-    </QueryClientProvider>
-  )
-  */
-
-  return (
-    <Component {...pageProps}/>
+      </main>
+    </Layout>
   )
 }
 
