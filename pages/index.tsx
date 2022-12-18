@@ -9,15 +9,19 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/drones/`);
-        if (response.status === 200) {
-          const result: FetchResultPilotesType = await response.json();
-          const { pilots, atr_snapshotTimestamp } = result;
-          const normalDate = formatTime(atr_snapshotTimestamp);
-          
-          violatorsSet([...pilots, ...violators]);
-          snapshotTimestampSet(normalDate);
-          setDomLoaded(true);
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/drones/`);
+          if (response.status === 200) {
+            const result: FetchResultPilotesType = await response.json();
+            const { pilots, atr_snapshotTimestamp } = result;
+            const normalDate = formatTime(atr_snapshotTimestamp);
+            
+            violatorsSet([...pilots, ...violators]);
+            snapshotTimestampSet(normalDate);
+            setDomLoaded(true);
+          }
+        } catch (err) {
+          snapshotTimestampSet(String(new Date()));
         }
     }
 
@@ -28,7 +32,7 @@ const Home = () => {
     }, 5000);
 
     return () => clearInterval(id);
-  }, [])
+  }, [violators])
 
   const formatTime = (dateTime: string): string => {
     const date = new Date(dateTime);
@@ -47,29 +51,32 @@ const Home = () => {
   return (    
     <>
       {domLoaded && (
-      <><h3>Current snapshot time: {snapshotTimestamp}</h3><table>
-          <thead>
-            <th>Time</th>
-            <th>Pilot id</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Phone number</th>
-            <th>Closed distance (in meteres)</th>
-            <th>Previus closest distance</th>
-          </thead>
-          <tbody>
-            {violators.map(violator => <tr key={violator.pilotId}>
-              <td align="center">{formatTime(violator.atr_snapshotTimestamp)}</td>
-              <td align="center">{violator.pilotId}</td>
-              <td align="center">{violator.firstName}</td>
-              <td align="center">{violator.email}</td>
-              <td align="center">{violator.phoneNumber}</td>
-              <td align="center">{violator.distance}</td>
-              <td align="center">{violator.status} {violator.previusDistance}</td>
-            </tr>
-            )}
-          </tbody>
-        </table></>
+        <>
+          <h3>Current snapshot time: {snapshotTimestamp}</h3>
+          <table id='listViolators'>
+            <thead>
+              <th>Time</th>
+              <th>Pilot id</th>
+              <th>First Name</th>
+              <th>Email</th>
+              <th>Phone number</th>
+              <th>Closed distance (in meteres)</th>
+              <th>Previus closest distance</th>
+            </thead>
+            <tbody>
+              {violators.map(violator => <tr key={violator.pilotId}>
+                <td align="center">{formatTime(violator.atr_snapshotTimestamp)}</td>
+                <td align="center">{violator.pilotId}</td>
+                <td align="center">{violator.firstName}</td>
+                <td align="center">{violator.email}</td>
+                <td align="center">{violator.phoneNumber}</td>
+                <td align="center">{violator.distance}</td>
+                <td align="center">{violator.status} {violator.previusDistance}</td>
+              </tr>
+              )}
+            </tbody>
+          </table>
+        </>
       )}
     </>
   )
