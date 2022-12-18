@@ -5,7 +5,7 @@ import { DronesType, DroneType, ViolotarType } from '../../types/violators.type'
 class Pilots {
   private static instance: Pilots;
   
-  private map: Map<string, ViolotarType>;
+  public map: Map<string, ViolotarType>;
   private parser: XMLParser;
   private atr_snapshotTimestamp: string;
 
@@ -17,6 +17,27 @@ class Pilots {
     });
   }
 
+  public static init(): Pilots {
+    if (!Pilots.instance) {
+      Pilots.instance = new Pilots();
+    }
+    return Pilots.instance;
+  }
+
+  public bootstrap = async() => {
+    try {
+      const drones = await this.getDrones();
+      await this.getViolatorsPilotes(drones);
+      const pilots = this.formViolatorsPilotes();
+      return { 
+        pilots,
+        atr_snapshotTimestamp: this.atr_snapshotTimestamp 
+      };  
+    } catch(err) {
+
+    }
+  }
+  
   private getDrones = async(): Promise<DroneType[]> => {
     const response = await fetch('https://assignments.reaktor.com/birdnest/drones');
     const result = await response.text();
@@ -83,36 +104,17 @@ class Pilots {
 
     return pilots;
   }
-
-  public bootstrap = async() => {
-    try {
-      const drones = await this.getDrones();
-      await this.getViolatorsPilotes(drones);
-      const pilots = this.formViolatorsPilotes();
-      return { 
-        pilots,
-        atr_snapshotTimestamp: this.atr_snapshotTimestamp 
-      };  
-    } catch(err) {
-
-    }
-  }
-
-  public static init(): Pilots {
-    if (!Pilots.instance) {
-      Pilots.instance = new Pilots();
-    }
-    return Pilots.instance;
-  }
 }
 
 export default async function violatorsPilotes(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     const violatorsPilotes = Pilots.init();
     const { pilots, atr_snapshotTimestamp } = await violatorsPilotes.bootstrap();
+    for (let pilot of violatorsPilotes.map.values()) {
+      if (pilot.pilotId === 'P-7l4YFV5XnO') console.log(pilot);
+    }
     res.status(200).json({ pilots, atr_snapshotTimestamp });
   }
-  // res.status(404).json({ message: 'something goes wrong' });
 }
 
 
