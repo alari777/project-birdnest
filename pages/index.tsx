@@ -5,6 +5,7 @@ import { FetchResultPilotesType, ViolotarType } from '../types/violators.type';
 const Home = () => {  
   const [violators, violatorsSet] = useState<ViolotarType[]>([]);
   const [snapshotTimestamp, snapshotTimestampSet] = useState<string>('');
+  const [domLoaded, setDomLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,6 +17,7 @@ const Home = () => {
           
           violatorsSet([...pilots, ...violators]);
           snapshotTimestampSet(normalDate);
+          setDomLoaded(true);
         }
     }
 
@@ -39,7 +41,42 @@ const Home = () => {
     return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
   }
 
+  if (!snapshotTimestamp && !violators) {
+    return <h1>Loading ...</h1>
+  }
   return (    
+    <>
+      {domLoaded && (
+      <><h3>Current snapshot time: {snapshotTimestamp}</h3><table>
+          <thead>
+            <th>Time</th>
+            <th>Pilot id</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Phone number</th>
+            <th>Closed distance (in meteres)</th>
+            <th>Previus closest distance</th>
+          </thead>
+          <tbody>
+            {violators.map(violator => <tr key={violator.pilotId}>
+              <td align="center">{formatTime(violator.atr_snapshotTimestamp)}</td>
+              <td align="center">{violator.pilotId}</td>
+              <td align="center">{violator.firstName}</td>
+              <td align="center">{violator.email}</td>
+              <td align="center">{violator.phoneNumber}</td>
+              <td align="center">{violator.distance}</td>
+              <td align="center">{violator.status} {violator.previusDistance}</td>
+            </tr>
+            )}
+          </tbody>
+        </table></>
+      )}
+    </>
+  )
+}
+
+export default Home;
+/*
     <>
       <h3>Current snapshot time: {snapshotTimestamp}</h3>
       <div className={styles.wrapper} id='wrapper'>
@@ -56,37 +93,5 @@ const Home = () => {
           )}
         </ul>
       </div>
-    </>
-  )
-}
-
-export default Home;
-/*
-    <>
-      <h3>Current snapshot time: {snapshotTimestamp}</h3>
-      <table>
-        <thead>
-            <th>Time</th>
-            <th>Pilot id</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Phone number</th>
-            <th>Closed distance (in meteres)</th>
-            <th>Last distance</th>
-        </thead>
-        <tbody>
-          {violators.map(violator => 
-              <tr key={violator.pilotId}>
-                  <td align="center">{formatTime(violator.atr_snapshotTimestamp)}</td>
-                  <td align="center">{violator.pilotId}</td>
-                  <td align="center">{violator.firstName}</td>
-                  <td align="center">{violator.email}</td>
-                  <td align="center">{violator.phoneNumber}</td>
-                  <td align="center" >{violator.distance}</td>
-                  <td align="center">{violator.status} {violator.previusDistance}</td>
-              </tr>   
-          )}
-        </tbody>
-      </table>
     </>
 */

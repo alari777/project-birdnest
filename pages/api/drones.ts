@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { XMLParser } from 'fast-xml-parser';
-import { DronesType, DroneType, ViolotarType } from '../../types/violators.type';
+import { BootstrapType, DronesType, DroneType, ViolotarType } from '../../types/violators.type';
+import { DistanceStatusEnum } from '../../enums/violators.enum';
 
 class Pilots {
   private static instance: Pilots;
   
-  public map: Map<string, ViolotarType>;
+  private map: Map<string, ViolotarType>;
   private parser: XMLParser;
   private atr_snapshotTimestamp: string;
 
@@ -24,7 +25,7 @@ class Pilots {
     return Pilots.instance;
   }
 
-  public bootstrap = async() => {
+  public bootstrap = async(): Promise<BootstrapType> => {
     try {
       const drones = await this.getDrones();
       await this.getViolatorsPilotes(drones);
@@ -34,7 +35,7 @@ class Pilots {
         atr_snapshotTimestamp: this.atr_snapshotTimestamp 
       };  
     } catch(err) {
-
+        console.log('bootstrap:', err.message);
     }
   }
   
@@ -64,28 +65,32 @@ class Pilots {
   private getViolatorsPilotes = async(violators: DroneType[]): Promise<void> => {
     await Promise.all(violators.map(async (dron) => {
       const responsePilot = await fetch(`https://assignments.reaktor.com/birdnest/pilots/${dron.serialNumber}`);
-      const resultPilot: ViolotarType = await responsePilot.json();
-      resultPilot.atr_snapshotTimestamp = this.atr_snapshotTimestamp;
-      // resultPilot.distance = dron.distance;
-      const newDistance = dron.newDistance;
-      let oldDistance = dron.newDistance;
-      resultPilot.status = '';
-      resultPilot.previusDistance = '';
-      if (this.map.has(resultPilot.pilotId)) {
-          oldDistance = Number(this.map.get(resultPilot.pilotId).distance);
-          this.map.delete(resultPilot.pilotId);
-      }
-      if (newDistance < oldDistance) {
-        resultPilot.previusDistance = String(oldDistance);  
-        resultPilot.distance = newDistance;
-        resultPilot.status = 'updated';
-      } else {
-        resultPilot.previusDistance = '';  
-        resultPilot.distance = oldDistance;
+      // if (responsePilot.status === 200) {
+        const resultPilot: ViolotarType = await responsePilot.json();
+        resultPilot.atr_snapshotTimestamp = this.atr_snapshotTimestamp;
+        // resultPilot.distance = dron.distance;
+        const newDistance = dron.newDistance;
+        let oldDistance = dron.newDistance;
+        let previusDistance = '';
         resultPilot.status = '';
-      }
+        resultPilot.previusDistance = '';
+        if (this.map.has(resultPilot.pilotId)) {
+            oldDistance = Number(this.map.get(resultPilot.pilotId).distance);
+            previusDistance = String(this.map.get(resultPilot.pilotId).previusDistance);
+            this.map.delete(resultPilot.pilotId);
+        }
+        if (newDistance < oldDistance) {
+          resultPilot.previusDistance = String(oldDistance);  
+          resultPilot.distance = newDistance;
+          resultPilot.status = DistanceStatusEnum.UPDATE;
+        } else {
+          resultPilot.previusDistance = previusDistance;  
+          resultPilot.distance = oldDistance;
+          resultPilot.status = previusDistance === '' ? '' : DistanceStatusEnum.UPDATE;
+        }
 
-      this.map.set(resultPilot.pilotId, resultPilot);
+        this.map.set(resultPilot.pilotId, resultPilot);
+      // }
       return resultPilot;
     }));
   }
@@ -110,9 +115,6 @@ export default async function violatorsPilotes(req: NextApiRequest, res: NextApi
   if (req.method === 'GET') {
     const violatorsPilotes = Pilots.init();
     const { pilots, atr_snapshotTimestamp } = await violatorsPilotes.bootstrap();
-    for (let pilot of violatorsPilotes.map.values()) {
-      if (pilot.pilotId === 'P-7l4YFV5XnO') console.log(pilot);
-    }
     res.status(200).json({ pilots, atr_snapshotTimestamp });
   }
 }

@@ -32,3 +32,8 @@ export type DronesType = {
         }
     }    
 }
+
+export type BootstrapType = {
+    pilots: ViolotarType[];
+    atr_snapshotTimestamp: string;
+}
