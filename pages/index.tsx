@@ -37,6 +37,7 @@ const Home = () => {
   }, [])
 
   const formatTime = (dateTime: string): string => {
+    if (dateTime === '') return '';
     const date = new Date(dateTime);
     const day: string = date.getDate() < 10 ? `0${date.getDate()}` : String(date.getDate());
     const month: string = date.getMonth() < 10 ? `0${date.getMonth()}` : String(date.getMonth());
@@ -56,7 +57,7 @@ const Home = () => {
   }
 
   return (
-    <>
+    <div>
       <label>
         <input
             type='checkbox'
@@ -77,7 +78,7 @@ const Home = () => {
           />
         </>
       )}
-    </>
+    </div>
   )
 }
 
