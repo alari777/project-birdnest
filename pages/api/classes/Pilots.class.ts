@@ -4,7 +4,7 @@ import { DistanceStatusEnum } from '../../../enums/violators.enum';
 
 export class Pilots {
   private static instance: Pilots;
-  
+
   private map: Map<string, ViolotarType>;
   private parser: XMLParser;
   private atr_snapshotTimestamp: string;
@@ -27,23 +27,23 @@ export class Pilots {
   public bootstrap = async(): Promise<BootstrapType> => {
     try {
       const drones = await this.getDrones();
-      await this.getViolatorsPilotes(drones);
-      const pilots = this.formViolatorsPilotes();
-      return { 
+      await this.getViolatorsPilots(drones);
+      const pilots = this.formViolatorsPilots();
+      return {
         pilots,
-        atr_snapshotTimestamp: this.atr_snapshotTimestamp 
-      };  
+        atr_snapshotTimestamp: this.atr_snapshotTimestamp
+      };
     } catch(err) {
         console.log('bootstrap:', err.message);
     }
   }
-  
+
   private getDrones = async(): Promise<DroneType[]> => {
     const response = await fetch('https://assignments.reaktor.com/birdnest/drones');
     const result = await response.text();
     const drones: DronesType = this.parser.parse(result);
 
-    const { drone, atr_snapshotTimestamp } = drones.report.capture; 
+    const { drone, atr_snapshotTimestamp } = drones.report.capture;
 
     this.atr_snapshotTimestamp = atr_snapshotTimestamp;
 
@@ -61,40 +61,38 @@ export class Pilots {
     return violators;
   }
 
-  private getViolatorsPilotes = async(violators: DroneType[]): Promise<void> => {
+  private getViolatorsPilots = async(violators: DroneType[]): Promise<void> => {
     await Promise.all(violators.map(async (dron) => {
       const responsePilot = await fetch(`https://assignments.reaktor.com/birdnest/pilots/${dron.serialNumber}`);
-      // if (responsePilot.status === 200) {
+      if (responsePilot.status === 200) {
         const resultPilot: ViolotarType = await responsePilot.json();
         resultPilot.atr_snapshotTimestamp = this.atr_snapshotTimestamp;
-        // resultPilot.distance = dron.distance;
         const newDistance = dron.newDistance;
         let oldDistance = dron.newDistance;
-        let previusDistance = '';
+        let previousDistance = '';
         resultPilot.status = '';
-        resultPilot.previusDistance = '';
+        resultPilot.previousDistance = '';
         if (this.map.has(resultPilot.pilotId)) {
             oldDistance = Number(this.map.get(resultPilot.pilotId).distance);
-            previusDistance = String(this.map.get(resultPilot.pilotId).previusDistance);
+            previousDistance = String(this.map.get(resultPilot.pilotId).previousDistance);
             this.map.delete(resultPilot.pilotId);
         }
         if (newDistance < oldDistance) {
-          resultPilot.previusDistance = String(oldDistance);  
+          resultPilot.previousDistance = String(oldDistance);
           resultPilot.distance = newDistance;
           resultPilot.status = DistanceStatusEnum.UPDATE;
         } else {
-          resultPilot.previusDistance = previusDistance;  
+          resultPilot.previousDistance = previousDistance;
           resultPilot.distance = oldDistance;
-          resultPilot.status = previusDistance === '' ? '' : DistanceStatusEnum.UPDATE;
+          resultPilot.status = previousDistance === '' ? '' : DistanceStatusEnum.UPDATE;
         }
 
         this.map.set(resultPilot.pilotId, resultPilot);
-      // }
-      return resultPilot;
+      }
     }));
   }
 
-  private formViolatorsPilotes = (): ViolotarType[] => {
+  private formViolatorsPilots = (): ViolotarType[] => {
     const pilots: ViolotarType[] = [];
     for (let pilot of this.map.values()) {
       const subtractDatetime: number = Number(new Date()) - Number(new Date(pilot.atr_snapshotTimestamp));
@@ -102,7 +100,7 @@ export class Pilots {
       if (subtractDatetimeInMins > 10) {
         this.map.delete(pilot.pilotId);
       } else {
-          pilots.push(pilot);        
+          pilots.push(pilot);
       }
     }
 

@@ -1,7 +1,7 @@
 export type ViolotarType = {
     pilotId: string;
     firstName: string;
-    phoneNumber: string; 
+    phoneNumber: string;
     email: string;
 
     lastName?: string;
@@ -9,7 +9,7 @@ export type ViolotarType = {
     atr_snapshotTimestamp?: string;
     distance?: number;
     status?: string;
-    previusDistance?: string;
+    previousDistance?: string;
 }
 
 export type FetchResultPilotesType = {
@@ -30,7 +30,7 @@ export type DronesType = {
             atr_snapshotTimestamp: string;
             drone: DroneType[];
         }
-    }    
+    }
 }
 
 export type BootstrapType = {

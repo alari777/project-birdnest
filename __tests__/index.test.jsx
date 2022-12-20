@@ -1,13 +1,18 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Home from '../pages/index';
 import '@testing-library/jest-dom';
 
+jest.mock('fetch');
+
 describe('Home', () => {
-  it('renders a heading', () => {
+  it('renders input checkbox', () => {
     render(<Home />)
 
-    const heading = screen.findByText('FOOTER');
+    const inputCheckbox = screen.getByText(/Extended View/i);
+    expect(inputCheckbox).toBeInTheDocument();
+  });
 
-    expect(heading).toBeInTheDocument();
-  })
+  // it('test fetch function', () => {
+  //   fetch.ge
+  // })
 })

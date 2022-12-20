@@ -1,38 +1,40 @@
 import { useState, useEffect } from 'react';
-import styles from '../styles/Home.module.css';
 import { FetchResultPilotesType, ViolotarType } from '../types/violators.type';
+import TableViolators from '../components/TableViolators';
 
-const Home = () => {  
+const Home = () => {
   const [violators, violatorsSet] = useState<ViolotarType[]>([]);
   const [snapshotTimestamp, snapshotTimestampSet] = useState<string>('');
-  const [domLoaded, setDomLoaded] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [extendedView, setExtendedView] = useState<boolean>(false);
+
+  const fetchData = async (): Promise<void> => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/drones/`);
+      if (response.status === 200) {
+        const result: FetchResultPilotesType = await response.json();
+        const { pilots, atr_snapshotTimestamp } = result;
+        const normalDate = formatTime(atr_snapshotTimestamp);
+
+        violatorsSet([...pilots, ...violators]);
+        snapshotTimestampSet(normalDate);
+        setIsLoaded(true);
+      }
+    } catch (err) {
+      violatorsSet([]);
+      snapshotTimestampSet(String(new Date()));
+      setIsLoaded(false);
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-        try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/drones/`);
-          if (response.status === 200) {
-            const result: FetchResultPilotesType = await response.json();
-            const { pilots, atr_snapshotTimestamp } = result;
-            const normalDate = formatTime(atr_snapshotTimestamp);
-            
-            violatorsSet([...pilots, ...violators]);
-            snapshotTimestampSet(normalDate);
-            setDomLoaded(true);
-          }
-        } catch (err) {
-          snapshotTimestampSet(String(new Date()));
-        }
-    }
-
-    fetchData();
-
+    fetchData().then();
     const id = setInterval(() => {
-      fetchData();
+      fetchData().then();
     }, 5000);
 
     return () => clearInterval(id);
-  }, [violators])
+  }, [])
 
   const formatTime = (dateTime: string): string => {
     const date = new Date(dateTime);
@@ -45,37 +47,34 @@ const Home = () => {
     return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
   }
 
+  const handleExtendedViewChange = () => {
+    setExtendedView(!extendedView);
+  }
+
   if (!snapshotTimestamp && !violators) {
     return <h1>Loading ...</h1>
   }
-  return (    
+
+  return (
     <>
-      {domLoaded && (
+      <label>
+        <input
+            type='checkbox'
+            id='extendedView'
+            data-testid='test-extendedView'
+            name='extendedView'
+            onChange={handleExtendedViewChange}
+        />
+        Extended View
+      </label>
+      {isLoaded && (
         <>
           <h3>Current snapshot time: {snapshotTimestamp}</h3>
-          <table id='listViolators'>
-            <thead>
-              <th>Time</th>
-              <th>Pilot id</th>
-              <th>First Name</th>
-              <th>Email</th>
-              <th>Phone number</th>
-              <th>Closed distance (in meteres)</th>
-              <th>Previus closest distance</th>
-            </thead>
-            <tbody>
-              {violators.map(violator => <tr key={violator.pilotId}>
-                <td align="center">{formatTime(violator.atr_snapshotTimestamp)}</td>
-                <td align="center">{violator.pilotId}</td>
-                <td align="center">{violator.firstName}</td>
-                <td align="center">{violator.email}</td>
-                <td align="center">{violator.phoneNumber}</td>
-                <td align="center">{violator.distance}</td>
-                <td align="center">{violator.status} {violator.previusDistance}</td>
-              </tr>
-              )}
-            </tbody>
-          </table>
+          <TableViolators
+              violators={violators}
+              extendedView={extendedView}
+              formatTime={formatTime}
+          />
         </>
       )}
     </>
@@ -88,15 +87,15 @@ export default Home;
       <h3>Current snapshot time: {snapshotTimestamp}</h3>
       <div className={styles.wrapper} id='wrapper'>
         <ul id='violatorsList'>
-          {violators.map(violator => 
+          {violators.map(violator =>
             <li key={violator.pilotId}>
               <ul className={styles.listViolators}>
-                <li className={styles.firstName}>{violator.pilotId}: {violator.firstName} ({formatTime(violator.atr_snapshotTimestamp)}); 
-                {violator.email}; 
-                {violator.phoneNumber}; 
+                <li className={styles.firstName}>{violator.pilotId}: {violator.firstName} ({formatTime(violator.atr_snapshotTimestamp)});
+                {violator.email};
+                {violator.phoneNumber};
                 Closest confirmed distance to the nest is {violator.distance} metres <sup>{violator.status} {violator.previusDistance}</sup></li>
               </ul>
-            </li>    
+            </li>
           )}
         </ul>
       </div>
