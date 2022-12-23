@@ -59,6 +59,21 @@ export const getViolatorsPilots = async(violators: DroneType[]): Promise<void> =
     }
   }));
 }
+export const formViolatorsPilots = (): ViolotarType[] => {
+  const instance = Pilots.init();
+  const pilots: ViolotarType[] = [];
+  for (let pilot of instance.map.values()) {
+    const subtractDatetime: number = Number(new Date()) - Number(new Date(pilot.atr_snapshotTimestamp));
+    const subtractTimeInMinutes = Number(subtractDatetime / 1000 / 60);
+    if (subtractTimeInMinutes > 10) {
+      instance.map.delete(pilot.pilotId);
+    } else {
+      pilots.push(pilot);
+    }
+  }
+
+  return pilots;
+}
 
 export class Pilots {
   private static instance: Pilots;
@@ -89,7 +104,7 @@ export class Pilots {
       // if (drones) await this.getViolatorsPilots(drones);
       if (drones) await getViolatorsPilots(drones);
 
-      const pilots = this.formViolatorsPilots();
+      const pilots = formViolatorsPilots();
       return {
         pilots,
         atr_snapshotTimestamp: this.atrSnapshotTimestamp
@@ -152,7 +167,7 @@ export class Pilots {
     }));
   }*/
 
-
+  /*
   private formViolatorsPilots = (): ViolotarType[] => {
     const pilots: ViolotarType[] = [];
     for (let pilot of this.map.values()) {
@@ -167,4 +182,11 @@ export class Pilots {
 
     return pilots;
   }
+  */
 }
+
+// const sendMessage = {
+//   formViolatorsPilots
+// };
+
+// export default sendMessage;

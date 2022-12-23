@@ -45,7 +45,7 @@ const TableViolators: FC<TableViolatorsProps> = ({
                     <td align="center">{violator.distance}</td>
                     {extendedView && (
                         <>
-                            <td align="center">{violator.status} {violator.previusDistance}</td>
+                            <td align="center">{violator.status} {violator.previousDistance}</td>
                         </>
                     )}
                 </tr>
