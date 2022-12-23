@@ -1,7 +1,8 @@
-import { XMLParser } from 'fast-xml-parser';
 import { BootstrapType, DronesType, DroneType, ViolotarType } from '../../../types/violators.type';
 import { DistanceStatusEnum } from '../../../enums/violators.enum';
+import { getDrones } from '../utils/getdrones/getDrones';
 
+/*
 export const getDrones = async(): Promise<DroneType[] | undefined> => {
   const instance = Pilots.init();
   const response = await fetch('https://assignments.reaktor.com/birdnest/drones');
@@ -28,6 +29,8 @@ export const getDrones = async(): Promise<DroneType[] | undefined> => {
   }
   return undefined;
 }
+*/
+
 export const getViolatorsPilots = async(violators: DroneType[]): Promise<void> => {
   const instance = Pilots.init();
   await Promise.all(violators.map(async (dron) => {
@@ -79,15 +82,10 @@ export class Pilots {
   private static instance: Pilots;
 
   public atrSnapshotTimestamp: string;
-  public parser: XMLParser;
   public map: Map<string, ViolotarType>;
 
   private constructor() {
     this.map = new Map();
-    this.parser = new XMLParser({
-      ignoreAttributes: false,
-      attributeNamePrefix: 'atr_',
-    });
   }
 
   public static init(): Pilots {
@@ -98,18 +96,20 @@ export class Pilots {
   }
 
   public bootstrap = async(): Promise<BootstrapType> => {
-    try {
-      const drones = await getDrones();
-      if (drones) await getViolatorsPilots(drones);
+    const { violators, atrSnapshotTimestamp } = await getDrones();
 
-      const pilots = formViolatorsPilots();
-      return {
-        pilots,
-        atr_snapshotTimestamp: this.atrSnapshotTimestamp
-      };
-    } catch(err) {
-        console.log('bootstrap:', err.message);
+    let pilots = [];
+
+    if (violators.length !== 0) {
+      this.atrSnapshotTimestamp = atrSnapshotTimestamp;
+      await getViolatorsPilots(violators);
+      pilots = formViolatorsPilots();
     }
+
+    return {
+      pilots,
+      atr_snapshotTimestamp: atrSnapshotTimestamp
+    };
   }
 }
 
