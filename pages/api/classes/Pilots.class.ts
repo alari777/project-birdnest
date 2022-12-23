@@ -1,35 +1,6 @@
-import { BootstrapType, DronesType, DroneType, ViolotarType } from '../../../types/violators.type';
+import { BootstrapType, DroneType, ViolotarType } from '../../../types/violators.type';
 import { DistanceStatusEnum } from '../../../enums/violators.enum';
 import { getDrones } from '../utils/getdrones/getDrones';
-
-/*
-export const getDrones = async(): Promise<DroneType[] | undefined> => {
-  const instance = Pilots.init();
-  const response = await fetch('https://assignments.reaktor.com/birdnest/drones');
-  if (response.status === 200) {
-    const result = await response.text();
-    const drones: DronesType = instance.parser.parse(result);
-
-    const {drone, atr_snapshotTimestamp} = drones.report.capture;
-
-    instance.atrSnapshotTimestamp = atr_snapshotTimestamp;
-
-    const violators = drone.filter((dron: DroneType) => {
-      const hypot = Math.sqrt(
-          Math.pow(250 * 100 * 10 - dron.positionX, 2) +
-          Math.pow(250 * 100 * 10 - dron.positionY, 2),
-      );
-      if (hypot < 100 * 100 * 10) { // <- 100m * 100cm * 10mm -- that is radius of `no drone zone`
-        dron.newDistance = Math.ceil((hypot / 10 / 100) * 100) / 100;
-        return dron;
-      }
-    });
-
-    return violators;
-  }
-  return undefined;
-}
-*/
 
 export const getViolatorsPilots = async(violators: DroneType[]): Promise<void> => {
   const instance = Pilots.init();
