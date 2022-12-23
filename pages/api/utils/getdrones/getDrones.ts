@@ -31,11 +31,6 @@ export async function getDrones(): Promise<GetDronesType> {
             });
 
             return { violators, atrSnapshotTimestamp: atr_snapshotTimestamp };
-        } else {
-            return {
-                violators: [],
-                atrSnapshotTimestamp: ''
-            };
         }
     } catch (err) {
         console.error(err.message);

@@ -21,7 +21,7 @@ const Home = () => {
         setIsLoaded(true);
       }
     } catch (err) {
-      violatorsSet([]);
+      // violatorsSet([]);
       snapshotTimestampSet(String(new Date()));
       setIsLoaded(false);
     }

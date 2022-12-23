@@ -69,13 +69,13 @@ export class Pilots {
   public bootstrap = async(): Promise<BootstrapType> => {
     const { violators, atrSnapshotTimestamp } = await getDrones();
 
-    let pilots = [];
+    // let pilots = [];
 
-    if (violators.length !== 0) {
+    // if (violators.length !== 0) {
       this.atrSnapshotTimestamp = atrSnapshotTimestamp;
       await getViolatorsPilots(violators);
-      pilots = formViolatorsPilots();
-    }
+      const pilots = formViolatorsPilots();
+    // }
 
     return {
       pilots,
