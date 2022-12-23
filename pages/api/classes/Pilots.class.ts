@@ -1,4 +1,4 @@
-import { BootstrapType, DroneType, ViolotarType } from '../../../types/violators.type';
+import { BootstrapType, DroneType, ViolatorType } from '../../../types/violators.type';
 import { DistanceStatusEnum } from '../../../enums/violators.enum';
 import { getDrones } from '../utils/getdrones/getDrones';
 
@@ -7,7 +7,7 @@ export const getViolatorsPilots = async(violators: DroneType[]): Promise<void> =
   await Promise.all(violators.map(async (dron) => {
     const responsePilot = await fetch(`https://assignments.reaktor.com/birdnest/pilots/${dron.serialNumber}`);
     if (responsePilot.status === 200) {
-      const resultPilot: ViolotarType = await responsePilot.json();
+      const resultPilot: ViolatorType = await responsePilot.json();
       resultPilot.atr_snapshotTimestamp = instance.atrSnapshotTimestamp;
       const newDistance = dron.newDistance;
       let oldDistance = dron.newDistance;
@@ -33,9 +33,9 @@ export const getViolatorsPilots = async(violators: DroneType[]): Promise<void> =
     }
   }));
 }
-export const formViolatorsPilots = (): ViolotarType[] => {
+export const formViolatorsPilots = (): ViolatorType[] => {
   const instance = Pilots.init();
-  const pilots: ViolotarType[] = [];
+  const pilots: ViolatorType[] = [];
   for (let pilot of instance.map.values()) {
     const subtractDatetime: number = Number(new Date()) - Number(new Date(pilot.atr_snapshotTimestamp));
     const subtractTimeInMinutes = Number(subtractDatetime / 1000 / 60);
@@ -53,7 +53,7 @@ export class Pilots {
   private static instance: Pilots;
 
   public atrSnapshotTimestamp: string;
-  public map: Map<string, ViolotarType>;
+  public map: Map<string, ViolatorType>;
 
   private constructor() {
     this.map = new Map();

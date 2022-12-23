@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { FetchResultPilotesType, ViolotarType } from '../types/violators.type';
+import { FetchResultPilotsType, ViolatorType } from '../types/violators.type';
 import TableViolators from '../components/TableViolators';
 
 const Home = () => {
-  const [violators, violatorsSet] = useState<ViolotarType[]>([]);
+  const [violators, violatorsSet] = useState<ViolatorType[]>([]);
   const [snapshotTimestamp, snapshotTimestampSet] = useState<string>('');
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [extendedView, setExtendedView] = useState<boolean>(false);
@@ -12,7 +12,7 @@ const Home = () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/drones/`);
       if (response.status === 200) {
-        const result: FetchResultPilotesType = await response.json();
+        const result: FetchResultPilotsType = await response.json();
         const { pilots, atr_snapshotTimestamp } = result;
         const normalDate = formatTime(atr_snapshotTimestamp);
 
@@ -83,22 +83,3 @@ const Home = () => {
 }
 
 export default Home;
-/*
-    <>
-      <h3>Current snapshot time: {snapshotTimestamp}</h3>
-      <div className={styles.wrapper} id='wrapper'>
-        <ul id='violatorsList'>
-          {violators.map(violator =>
-            <li key={violator.pilotId}>
-              <ul className={styles.listViolators}>
-                <li className={styles.firstName}>{violator.pilotId}: {violator.firstName} ({formatTime(violator.atr_snapshotTimestamp)});
-                {violator.email};
-                {violator.phoneNumber};
-                Closest confirmed distance to the nest is {violator.distance} metres <sup>{violator.status} {violator.previusDistance}</sup></li>
-              </ul>
-            </li>
-          )}
-        </ul>
-      </div>
-    </>
-*/

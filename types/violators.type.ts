@@ -1,4 +1,4 @@
-export type ViolotarType = {
+export type ViolatorType = {
     pilotId: string;
     firstName: string;
     phoneNumber: string;
@@ -12,8 +12,8 @@ export type ViolotarType = {
     previousDistance?: string;
 }
 
-export type FetchResultPilotesType = {
-    pilots: ViolotarType[];
+export type FetchResultPilotsType = {
+    pilots: ViolatorType[];
     atr_snapshotTimestamp: string;
 }
 
@@ -34,6 +34,6 @@ export type DronesType = {
 }
 
 export type BootstrapType = {
-    pilots: ViolotarType[];
+    pilots: ViolatorType[];
     atr_snapshotTimestamp: string;
 }
