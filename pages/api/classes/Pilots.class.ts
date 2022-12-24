@@ -3,22 +3,6 @@ import { getDrones } from '../utils/getdrones/getDrones';
 import { getViolatorsPilots } from '../utils/getViolatorsPilots/getViolatorsPilots';
 import { formViolatorsPilots } from '../utils/formViolatorsPilots/formViolatorsPilots';
 
-/*export const formViolatorsPilots = (): ViolatorType[] => {
-  const instance = Pilots.init();
-  const pilots: ViolatorType[] = [];
-  for (let pilot of instance.map.values()) {
-    const subtractDatetime: number = Number(new Date()) - Number(new Date(pilot.atr_snapshotTimestamp));
-    const subtractTimeInMinutes = Number(subtractDatetime / 1000 / 60);
-    if (subtractTimeInMinutes > 10) {
-      instance.map.delete(pilot.pilotId);
-    } else {
-      pilots.push(pilot);
-    }
-  }
-
-  return pilots;
-}*/
-
 export class Pilots {
   private static instance: Pilots;
 
