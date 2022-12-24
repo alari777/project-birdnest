@@ -1,38 +1,6 @@
-import { getViolatorsPilots } from "./Pilots.class";
-import {
-    mockJsonViolators,
-    mockPilot
-} from "./mock.data.pilots";
-
 // jest.mock("./Pilots.class", () => ({
 //     getDrones: jest.fn()
 // }));
-
-describe('testing function getViolatorsPilots()', () => {
-    beforeEach(() => {
-        fetch.resetMocks();
-        jest.clearAllMocks();
-    });
-
-    it("should return void, status code is 200, map.has, map.get, map.delete", async () => {
-        fetch.mockResponse(JSON.stringify(mockJsonViolators), {
-            status: 200,
-            headers: {'content-type': 'application/json'}
-        });
-
-        Map.prototype.has = jest.fn().mockReturnValue(true);
-        Map.prototype.get = jest.fn().mockReturnValue({ distance: 1});
-        Map.prototype.delete = jest.fn();
-
-        const result = await getViolatorsPilots([mockPilot]);
-
-        expect(result).toBeUndefined();
-        expect(Map.prototype.has).toHaveBeenCalled();
-        expect(Map.prototype.get).toHaveBeenCalledTimes(2);
-        expect(Map.prototype.delete).toHaveBeenCalled();
-    });
-
-});
 
 /*describe('testing function bootstrap()', () => {
     let instance;
