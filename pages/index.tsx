@@ -3,8 +3,8 @@ import { FetchResultPilotsType, ViolatorType } from '../types/violators.type';
 import TableViolators from '../components/TableViolators';
 
 const Home = () => {
-  const [violators, violatorsSet] = useState<ViolatorType[]>([]);
-  const [snapshotTimestamp, snapshotTimestampSet] = useState<string>('');
+  const [violators, setViolators] = useState<ViolatorType[]>([]);
+  const [snapshotTimestamp, setSnapshotTimestamp] = useState<string>('');
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [extendedView, setExtendedView] = useState<boolean>(false);
 
@@ -16,13 +16,12 @@ const Home = () => {
         const { pilots, atr_snapshotTimestamp } = result;
         const normalDate = formatTime(atr_snapshotTimestamp);
 
-        violatorsSet([...pilots, ...violators]);
-        snapshotTimestampSet(normalDate);
+        setViolators(pilots);
+        setSnapshotTimestamp(normalDate);
         setIsLoaded(true);
       }
     } catch (err) {
-      // violatorsSet([]);
-      snapshotTimestampSet(String(new Date()));
+      setSnapshotTimestamp(String(new Date()));
       setIsLoaded(false);
     }
   }
@@ -53,7 +52,7 @@ const Home = () => {
   }
 
   if (!snapshotTimestamp && !violators) {
-    return <h1>Loading ...</h1>
+    return <h1 style={{ color: 'red' }}>Loading ...</h1>
   }
 
   return (

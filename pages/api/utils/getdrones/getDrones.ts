@@ -17,7 +17,7 @@ export async function getDrones(): Promise<GetDronesType> {
             const result = await response.text();
             const drones: DronesType = parser.parse(result);
 
-            const {drone, atr_snapshotTimestamp} = drones.report.capture;
+            const { drone, atr_snapshotTimestamp } = drones.report.capture;
 
             const violators = drone.filter((dron: DroneType) => {
                 const hypot = Math.sqrt(
@@ -31,9 +31,14 @@ export async function getDrones(): Promise<GetDronesType> {
             });
 
             return { violators, atrSnapshotTimestamp: atr_snapshotTimestamp };
+        } else {
+            return {
+                violators: [],
+                atrSnapshotTimestamp: ''
+            };
         }
     } catch (err) {
-        console.error(err.message);
+        console.log(err.message);
         return {
             violators: [],
             atrSnapshotTimestamp: ''

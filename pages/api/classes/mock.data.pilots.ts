@@ -107,3 +107,45 @@ export const mockPilot = {
     newDistance: 50,
     serialNumber: 'SN-XkgkZNrFZG',
 };
+
+export const mockResponseJsonGetDrones = [
+    {
+        altitude: 4119.562140996533,
+        firmware: "7.7.0",
+        ipv4: "21.219.116.45",
+        ipv6: "df6f:1400:bc1a:f7b3:d345:b1ee:c3bd:3f39",
+        mac: "0e:ca:12:ec:a8:35",
+        manufacturer: "MegaBuzzer Corp",
+        model: "Mosquito",
+        newDistance: 89.87,
+        positionX: 335669.96213563567,
+        positionY: 277122.918427297,
+        serialNumber: "SN-6TYm7A2JEn",
+    },
+    {
+        altitude: 4899.690181228342,
+            firmware: "7.2.2",
+        ipv4: "195.48.73.57",
+        ipv6: "fcf3:3335:d7f7:fa59:6a0e:9144:05b0:276e",
+        mac: "0d:70:fc:fe:5c:88",
+        manufacturer: "MegaBuzzer Corp",
+        model: "Eagle",
+        newDistance: 87.4,
+        positionX: 187168.94545655686,
+        positionY: 189246.36693049452,
+        serialNumber: "SN-Ga3emVTM85",
+    },
+    {
+        altitude: 4419.376322806358,
+            firmware: "9.7.8",
+        ipv4: "226.187.188.38",
+        ipv6: "1efd:097e:2e75:04c0:f8e2:70e0:fd7d:6dd7",
+        mac: "ec:2f:b0:8a:26:75",
+        manufacturer: "ProDröne Ltd",
+        model: "HRP-DRP 1 Pro",
+        newDistance: 81.93,
+        positionX: 296072.17258878995,
+        positionY: 317744.94565795804,
+        serialNumber: "SN-XkgkZNrFZG",
+    }
+];

@@ -2,6 +2,7 @@ import { BootstrapType, DroneType, ViolatorType } from '../../../types/violators
 import { DistanceStatusEnum } from '../../../enums/violators.enum';
 import { getDrones } from '../utils/getdrones/getDrones';
 
+
 export const getViolatorsPilots = async(violators: DroneType[]): Promise<void> => {
   const instance = Pilots.init();
   await Promise.all(violators.map(async (dron) => {
@@ -69,13 +70,11 @@ export class Pilots {
   public bootstrap = async(): Promise<BootstrapType> => {
     const { violators, atrSnapshotTimestamp } = await getDrones();
 
-    // let pilots = [];
-
-    // if (violators.length !== 0) {
-      this.atrSnapshotTimestamp = atrSnapshotTimestamp;
+    if (violators.length !== 0) {
       await getViolatorsPilots(violators);
-      const pilots = formViolatorsPilots();
-    // }
+    }
+    this.atrSnapshotTimestamp = atrSnapshotTimestamp;
+    const pilots = formViolatorsPilots();
 
     return {
       pilots,
