@@ -5,7 +5,6 @@ export default async function violatorsPilots(req: NextApiRequest, res: NextApiR
   if (req.method === 'GET') {
     const violatorsPilots = Pilots.init();
     const { pilots, atr_snapshotTimestamp } = await violatorsPilots.bootstrap();
-    console.log('pilots', pilots.length);
     res.status(200).json({ pilots, atr_snapshotTimestamp });
   }
 }
