@@ -1,8 +1,9 @@
-import { BootstrapType, ViolatorType } from '../../../types/violators.type';
+import { ViolatorType } from '../../../types/violators.type';
 import { getDrones } from '../utils/getdrones/getDrones';
 import { getViolatorsPilots } from '../utils/getViolatorsPilots/getViolatorsPilots';
+import { formViolatorsPilots } from '../utils/formViolatorsPilots/formViolatorsPilots';
 
-export const formViolatorsPilots = (): ViolatorType[] => {
+/*export const formViolatorsPilots = (): ViolatorType[] => {
   const instance = Pilots.init();
   const pilots: ViolatorType[] = [];
   for (let pilot of instance.map.values()) {
@@ -16,7 +17,7 @@ export const formViolatorsPilots = (): ViolatorType[] => {
   }
 
   return pilots;
-}
+}*/
 
 export class Pilots {
   private static instance: Pilots;
@@ -35,7 +36,7 @@ export class Pilots {
     return Pilots.instance;
   }
 
-  public bootstrap = async(): Promise<BootstrapType> => {
+  public bootstrap = async(): Promise<{ pilots: ViolatorType[]; atr_snapshotTimestamp: string }> => {
     const { violators, atrSnapshotTimestamp } = await getDrones();
 
     if (violators.length !== 0) {

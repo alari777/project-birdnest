@@ -124,7 +124,7 @@ export const mockResponseJsonGetDrones = [
     },
     {
         altitude: 4899.690181228342,
-            firmware: "7.2.2",
+        firmware: "7.2.2",
         ipv4: "195.48.73.57",
         ipv6: "fcf3:3335:d7f7:fa59:6a0e:9144:05b0:276e",
         mac: "0d:70:fc:fe:5c:88",
@@ -137,7 +137,7 @@ export const mockResponseJsonGetDrones = [
     },
     {
         altitude: 4419.376322806358,
-            firmware: "9.7.8",
+        firmware: "9.7.8",
         ipv4: "226.187.188.38",
         ipv6: "1efd:097e:2e75:04c0:f8e2:70e0:fd7d:6dd7",
         mac: "ec:2f:b0:8a:26:75",
