@@ -22,7 +22,7 @@ const Home = () => {
         setIsLoaded(true);
       }
     } catch (err) {
-      setSnapshotTimestamp(String(new Date()));
+      // setSnapshotTimestamp(String(new Date()));
       setIsLoaded(false);
     }
   }
@@ -34,14 +34,14 @@ const Home = () => {
     }, 5000);
 
     return () => clearInterval(id);
-  }, [])
+  }, []);
 
   const handleExtendedViewChange = () => {
     setExtendedView(!extendedView);
   }
 
-  if (!snapshotTimestamp && !violators) {
-    return <h1 style={{ color: 'red' }}>Loading ...</h1>
+  if (!isLoaded) {
+    return <h2>Wait a little bit, please. Data are loading ...</h2>
   }
 
   return (
@@ -58,7 +58,7 @@ const Home = () => {
       </label>
       {isLoaded && (
         <>
-          <h3>Current snapshot time: {snapshotTimestamp}</h3>
+          <h3 data-testid='snapshot-time'>Current snapshot time: {snapshotTimestamp}</h3>
           <TableViolators
               violators={violators}
               extendedView={extendedView}
