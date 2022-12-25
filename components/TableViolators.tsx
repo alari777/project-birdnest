@@ -1,16 +1,15 @@
 import { FC } from "react";
-import { ViolotarType } from "../types/violators.type";
+import { ViolatorType } from "../types/violators.type";
+import { formatTime } from '../pages/utils/formatTime/formatTime';
 
 type TableViolatorsProps = {
-    violators: ViolotarType[];
+    violators: ViolatorType[];
     extendedView: boolean;
-    formatTime: (dateTime: string) => string;
 }
 
 const TableViolators: FC<TableViolatorsProps> = ({
         violators,
-        extendedView,
-        formatTime
+        extendedView
 }) => {
     return (
         <table id='listViolators'>

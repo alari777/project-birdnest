@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FetchResultPilotsType, ViolatorType } from '../types/violators.type';
 import TableViolators from '../components/TableViolators';
+import { formatTime } from './utils/formatTime/formatTime';
 
 const Home = () => {
   const [violators, setViolators] = useState<ViolatorType[]>([]);
@@ -35,18 +36,6 @@ const Home = () => {
     return () => clearInterval(id);
   }, [])
 
-  const formatTime = (dateTime: string): string => {
-    if (dateTime === '') return '';
-    const date = new Date(dateTime);
-    const day: string = date.getDate() < 10 ? `0${date.getDate()}` : String(date.getDate());
-    const month: string = date.getMonth() < 10 ? `0${date.getMonth()}` : String(date.getMonth());
-    const year: string = String(date.getFullYear());
-    const hours: string = date.getHours() < 10 ? `0${date.getHours()}` : String(date.getHours());
-    const minutes: string = date.getMinutes() < 10 ? `0${date.getMinutes()}` : String(date.getMinutes());
-    const seconds: string = date.getSeconds() < 10 ? `0${date.getSeconds()}` : String(date.getSeconds());
-    return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
-  }
-
   const handleExtendedViewChange = () => {
     setExtendedView(!extendedView);
   }
@@ -73,7 +62,6 @@ const Home = () => {
           <TableViolators
               violators={violators}
               extendedView={extendedView}
-              formatTime={formatTime}
           />
         </>
       )}
