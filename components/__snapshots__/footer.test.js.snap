@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render footer 1`] = `
+<footer>
+  Project Birdnest. Created at Nestjs. 2022
+</footer>
+`;
