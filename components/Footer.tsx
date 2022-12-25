@@ -3,7 +3,7 @@ import { FC } from "react";
 const Footer: FC = () => {
     return (
         <footer>
-            Footer
+            Project Birdnest. Created at Nestjs. 2022
         </footer>
     )
 }
