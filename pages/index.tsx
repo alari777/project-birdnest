@@ -41,7 +41,7 @@ const Home = () => {
   }
 
   if (!isLoaded) {
-    return <h2>Wait a little bit, please. Data are loading ...</h2>
+    return <h2>Wait a little bit, please. Data are loading ..</h2>
   }
 
   return (
