@@ -1,4 +1,4 @@
-import { formatTime} from './formatTime';
+import { formatTime } from './formatTime';
 
 describe('testing function formatTime()', () => {
     it("should return date in new format", () => {

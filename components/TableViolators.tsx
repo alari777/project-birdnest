@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { ViolatorType } from "../types/violators.type";
-import { formatTime } from '../pages/utils/formatTime/formatTime';
+import { formatTime } from '../utils/formatTime/formatTime';
 
 type TableViolatorsProps = {
     violators: ViolatorType[];
