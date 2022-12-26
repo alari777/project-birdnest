@@ -15,10 +15,12 @@ const Home = () => {
       if (response.status === 200) {
         const result: FetchResultPilotsType = await response.json();
         const { pilots, atr_snapshotTimestamp } = result;
-        const normalDate = formatTime(atr_snapshotTimestamp);
+        if (pilots.length !== 0) {
+          const normalDate = formatTime(atr_snapshotTimestamp);
 
-        setViolators(pilots);
-        setSnapshotTimestamp(normalDate);
+          setViolators(pilots);
+          setSnapshotTimestamp(normalDate);
+        }
         setIsLoaded(true);
       }
     } catch (err) {
