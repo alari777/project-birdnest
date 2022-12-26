@@ -16,8 +16,9 @@ const TableViolators: FC<TableViolatorsProps> = ({
             <thead>
             {extendedView && (
                 <>
-                    <th data-testid='test-th1'>Time</th>
-                    <th data-testid='test-td2'>Pilot id</th>
+                    <th data-testid='test-th1'>#</th>
+                    <th data-testid='test-th2'>Time</th>
+                    <th data-testid='test-td3'>Pilot id</th>
                 </>
             )}
             <th>First Name</th>
@@ -26,14 +27,15 @@ const TableViolators: FC<TableViolatorsProps> = ({
             <th>Closed distance (in metres)</th>
             {extendedView && (
                 <>
-                    <th data-testid='test-th3'>Previous closest distance</th>
+                    <th data-testid='test-th4'>Previous closest distance</th>
                 </>
             )}
             </thead>
             <tbody>
-            {violators.map(violator => <tr key={violator.pilotId}>
+            {violators.map((violator, index) => <tr key={violator.pilotId}>
                     {extendedView && (
                         <>
+                            <td align="center">{index+1}</td>
                             <td align="center">{formatTime(violator.atr_snapshotTimestamp)}</td>
                             <td align="center">{violator.pilotId}</td>
                         </>
