@@ -1,6 +1,10 @@
 {
   "name": "project-birdnest",
+  "author": "Toivo Ilmast",
   "version": "0.1.0",
+  "description": "It is monitoring project for birdnest in order to detect drone-violators and to show these ones.",
+  "keywords": ["drone-violators", "birdnest", "NLZ", "nextjs"],
+  "license": "MIT",
   "private": false,
   "scripts": {
     "dev": "next dev",
