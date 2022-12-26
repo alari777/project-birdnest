@@ -11,7 +11,7 @@ const Home = () => {
 
   const fetchData = async (): Promise<void> => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_HOST}/drones/`);
+      const response = await fetch('/api/drones/');
       if (response.status === 200) {
         const result: FetchResultPilotsType = await response.json();
         const { pilots, atr_snapshotTimestamp } = result;
