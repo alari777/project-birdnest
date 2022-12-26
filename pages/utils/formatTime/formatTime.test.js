@@ -11,7 +11,7 @@ describe('testing function formatTime()', () => {
         expect(result).toBe('');
     });
 
-    it("should return day with zero: 05.12.2022 19:48:16", () => {
+    it("should return day with zero", () => {
         const result = formatTime('2022-12-05T19:48:16.956Z')
         expect(result).toBe('05.12.2022 19:48:16');
     });
