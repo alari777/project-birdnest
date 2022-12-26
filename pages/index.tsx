@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FetchResultPilotsType, ViolatorType } from '../types/violators.type';
 import TableViolators from '../components/TableViolators';
-import { formatTime } from './utils/formatTime/formatTime';
+import { formatTime } from '../utils/formatTime/formatTime';
 
 const Home = () => {
   const [violators, setViolators] = useState<ViolatorType[]>([]);
