@@ -9,7 +9,30 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [extendedView, setExtendedView] = useState<boolean>(false);
 
-  const fetchData = async (): Promise<void> => {
+  const fetchData = (): void => {
+    const idSetTimeout = setTimeout(async () => {
+      try {
+        const response = await fetch('/api/drones/');
+        if (response.status === 200) {
+          const result: FetchResultPilotsType = await response.json();
+          const { pilots, atr_snapshotTimestamp } = result;
+          if (pilots.length !== 0) {
+            const normalDate = formatTime(atr_snapshotTimestamp);
+
+            setViolators(pilots);
+            setSnapshotTimestamp(normalDate);
+          }
+          setIsLoaded(true);
+        }
+      } catch (err) {
+        setIsLoaded(false);
+      } finally {
+        clearInterval(idSetTimeout);
+        fetchData();
+      }
+    }, 2000);
+  }
+  /*const fetchData = async (): Promise<void> => {
     try {
       const response = await fetch('/api/drones/');
       if (response.status === 200) {
@@ -27,15 +50,16 @@ const Home = () => {
       // setSnapshotTimestamp(String(new Date()));
       setIsLoaded(false);
     }
-  }
+  }*/
 
   useEffect(() => {
-    fetchData().then();
-    const id = setInterval(() => {
-      fetchData().then();
-    }, 5000);
+    fetchData();
+    // fetchData().then();
+    // const id = setInterval(() => {
+    //   fetchData().then();
+    // }, 5000);
 
-    return () => clearInterval(id);
+    // return () => clearInterval(id);
   }, []);
 
   const handleExtendedViewChange = () => {
