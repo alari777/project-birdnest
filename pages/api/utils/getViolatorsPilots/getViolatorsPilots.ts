@@ -29,7 +29,11 @@ export async function getViolatorsPilots(violators: DroneType[]): Promise<void> 
                 resultPilot.status = previousDistance === '' ? '' : DistanceStatusEnum.UPDATE;
             }
 
-            instance.map.set(resultPilot.pilotId, resultPilot);
+            if (resultPilot.atr_snapshotTimestamp !== ''
+                && typeof resultPilot.atr_snapshotTimestamp !== undefined
+            ) {
+                instance.map.set(resultPilot.pilotId, resultPilot);
+            }
         }
     }));
 }
