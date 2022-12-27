@@ -3,6 +3,7 @@ export function formatTime(dateTime: string): string {
     const date = new Date(dateTime);
 
     const dayUTC = date.getUTCDate();
+    if (isNaN(dayUTC)) return '';
     const day: string = dayUTC < 10 ? `0${dayUTC}` : String(dayUTC);
 
     const monthUTC = date.getUTCMonth() + 1;
@@ -13,7 +14,7 @@ export function formatTime(dateTime: string): string {
     const hoursUTC = date.getUTCHours();
     const hours: string = hoursUTC < 10 ? `0${hoursUTC}` : String(hoursUTC);
 
-    const minutesUTC = date.getUTCMinutes()
+    const minutesUTC = date.getUTCMinutes();
     const minutes: string = minutesUTC < 10 ? `0${minutesUTC}` : String(minutesUTC);
 
     const secondsUTC = date.getUTCSeconds();
