@@ -14,8 +14,8 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
-          registry: ghcr.io
-          name: ghcr.io/alari777/project-birdnest/project-birdnest
+          registry: https://ghcr.io
+          name: https://ghcr.io/alari777/project-birdnest
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: "develop"
