@@ -1,13 +1,13 @@
 import { ViolatorType } from '../../../types/violators.type';
-import { getDrones } from '../utils/getdrones/getDrones';
-import { getViolatorsPilots } from '../utils/getViolatorsPilots/getViolatorsPilots';
-import { formViolatorsPilots } from '../utils/formViolatorsPilots/formViolatorsPilots';
+import { formViolatorsPilots } from '../helpers/formViolatorsPilots/formViolatorsPilots';
+import { startApplicationService } from '../services/startApplicationService/startApplicationService'
 
 export class Pilots {
   private static instance: Pilots;
 
-  public atrSnapshotTimestamp: string;
+  public atrSnapshotTimestamp: string = '';
   public map: Map<string, ViolatorType>;
+  public startAppFlag: boolean = false;
 
   private constructor() {
     this.map = new Map();
@@ -21,17 +21,16 @@ export class Pilots {
   }
 
   public bootstrap = async(): Promise<{ pilots: ViolatorType[]; atr_snapshotTimestamp: string }> => {
-    const { violators, atrSnapshotTimestamp } = await getDrones();
-
-    if (violators.length !== 0) {
-      await getViolatorsPilots(violators);
+    if (!this.startAppFlag) {
+      await startApplicationService();
+      this.startAppFlag = true;
     }
-    this.atrSnapshotTimestamp = atrSnapshotTimestamp;
+
     const pilots = formViolatorsPilots();
 
     return {
       pilots,
-      atr_snapshotTimestamp: atrSnapshotTimestamp
+      atr_snapshotTimestamp: this.atrSnapshotTimestamp
     };
   }
 }
