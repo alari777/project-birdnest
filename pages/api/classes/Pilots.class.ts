@@ -1,7 +1,6 @@
 import { ViolatorType } from '../../../types/violators.type';
-import { getDrones } from '../utils/getdrones/getDrones';
-import { getViolatorsPilots } from '../utils/getViolatorsPilots/getViolatorsPilots';
-import { formViolatorsPilots } from '../utils/formViolatorsPilots/formViolatorsPilots';
+import { formViolatorsPilots } from '../helpers/formViolatorsPilots/formViolatorsPilots';
+import { startApplicationService } from '../services/startApplicationService/startApplicationService'
 
 export class Pilots {
   private static instance: Pilots;
@@ -22,23 +21,8 @@ export class Pilots {
   }
 
   public bootstrap = async(): Promise<{ pilots: ViolatorType[]; atr_snapshotTimestamp: string }> => {
-    const startApplicationService = () => {
-      const timerId = setTimeout(async () => {
-        const { violators, atrSnapshotTimestamp } = await getDrones();
-
-        if (violators.length !== 0) {
-          await getViolatorsPilots(violators);
-        }
-
-        this.atrSnapshotTimestamp = atrSnapshotTimestamp;
-
-        startApplicationService();
-      }, 2000);
-      clearTimeout(timerId);
-    };
-
     if (!this.startAppFlag) {
-      startApplicationService();
+      await startApplicationService();
       this.startAppFlag = true;
     }
 
