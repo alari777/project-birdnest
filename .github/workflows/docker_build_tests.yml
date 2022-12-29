@@ -1,4 +1,4 @@
-name: docker_package
+name: Publish docker and run tests
 on:
   push:
     branches:
@@ -7,7 +7,19 @@ on:
     branches:
       - main
 jobs:
-  test:
+  run_tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - run: npm ci
+      - run: npm run test:start
+  push_docker:
+    name: Push Docker
+    needs: run_tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
