@@ -6,8 +6,9 @@ import { formViolatorsPilots } from '../utils/formViolatorsPilots/formViolatorsP
 export class Pilots {
   private static instance: Pilots;
 
-  public atrSnapshotTimestamp: string;
+  public atrSnapshotTimestamp: string = '';
   public map: Map<string, ViolatorType>;
+  public startAppFlag: boolean = false;
 
   private constructor() {
     this.map = new Map();
@@ -21,17 +22,31 @@ export class Pilots {
   }
 
   public bootstrap = async(): Promise<{ pilots: ViolatorType[]; atr_snapshotTimestamp: string }> => {
-    const { violators, atrSnapshotTimestamp } = await getDrones();
+    const startApplicationService = () => {
+      const timerId = setTimeout(async () => {
+        const { violators, atrSnapshotTimestamp } = await getDrones();
 
-    if (violators.length !== 0) {
-      await getViolatorsPilots(violators);
+        if (violators.length !== 0) {
+          await getViolatorsPilots(violators);
+        }
+
+        this.atrSnapshotTimestamp = atrSnapshotTimestamp;
+
+        startApplicationService();
+      }, 2000);
+      clearTimeout(timerId);
+    };
+
+    if (!this.startAppFlag) {
+      startApplicationService();
+      this.startAppFlag = true;
     }
-    this.atrSnapshotTimestamp = atrSnapshotTimestamp;
+
     const pilots = formViolatorsPilots();
 
     return {
       pilots,
-      atr_snapshotTimestamp: atrSnapshotTimestamp
+      atr_snapshotTimestamp: this.atrSnapshotTimestamp
     };
   }
 }
