@@ -24,7 +24,6 @@ const Home = () => {
         setIsLoaded(true);
       }
     } catch (err) {
-      // setSnapshotTimestamp(String(new Date()));
       setIsLoaded(false);
     }
   }
