@@ -22,7 +22,7 @@ describe('testing function getViolatorsPilots()', () => {
 
         expect(result).toBeUndefined();
         expect(Map.prototype.has).toHaveBeenCalled();
-        expect(Map.prototype.get).toHaveBeenCalledTimes(2);
+        expect(Map.prototype.get).toHaveBeenCalledTimes(3);
         expect(Map.prototype.delete).toHaveBeenCalled();
     });
     it("return VOID, status code of pilot is 200, map.has, map.get, map.delete are called, distance is 1", async () => {
@@ -37,7 +37,7 @@ describe('testing function getViolatorsPilots()', () => {
 
         expect(result).toBeUndefined();
         expect(Map.prototype.has).toHaveBeenCalled();
-        expect(Map.prototype.get).toHaveBeenCalledTimes(2);
+        expect(Map.prototype.get).toHaveBeenCalledTimes(3);
         expect(Map.prototype.delete).toHaveBeenCalled();
     });
 
