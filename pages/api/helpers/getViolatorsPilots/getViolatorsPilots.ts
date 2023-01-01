@@ -13,23 +13,27 @@ export async function getViolatorsPilots(violators: DroneType[]): Promise<void> 
                 const newDistance = dron.newDistance;
                 let oldDistance = dron.newDistance;
                 let previousDistance = '';
+                let oldTime = instance.atrSnapshotTimestamp;
                 resultPilot.status = '';
                 resultPilot.previousDistance = '';
                 if (instance.map.has(resultPilot.pilotId)) {
                     oldDistance = Number(instance.map.get(resultPilot.pilotId).distance);
                     previousDistance = String(instance.map.get(resultPilot.pilotId).previousDistance);
+                    oldTime = instance.map.get(resultPilot.pilotId).atr_snapshotTimestamp;
                     instance.map.delete(resultPilot.pilotId);
                 }
                 if (newDistance < oldDistance) {
                     resultPilot.previousDistance = String(oldDistance);
                     resultPilot.distance = newDistance;
                     resultPilot.status = DistanceStatusEnum.UPDATE;
+                    oldTime = instance.atrSnapshotTimestamp;
                 } else {
                     resultPilot.previousDistance = previousDistance;
                     resultPilot.distance = oldDistance;
                     resultPilot.status = previousDistance === '' ? '' : DistanceStatusEnum.UPDATE;
                 }
 
+                resultPilot.atr_snapshotTimestamp = oldTime;
                 if (resultPilot.atr_snapshotTimestamp !== ''
                     && typeof resultPilot.atr_snapshotTimestamp !== undefined
                 ) {
