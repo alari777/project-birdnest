@@ -5,7 +5,6 @@ import { Pilots } from "../../classes/Pilots.class";
 export async function startApplicationService(): Promise<void> {
     const instance = Pilots.init();
     const timerId: NodeJS.Timeout = setTimeout(async (): Promise<void> => {
-        console.log('Start Application Service: tick', new Date());
         const { violators, atrSnapshotTimestamp } = await getDrones();
 
         if (violators.length !== 0) {
