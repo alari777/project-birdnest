@@ -14,22 +14,24 @@ const TableViolators: FC<TableViolatorsProps> = ({
     return (
         <table id='listViolators'>
             <thead>
-            {extendedView && (
-                <>
-                    <th data-testid='test-th1'>#</th>
-                    <th data-testid='test-th2'>Time</th>
-                    <th data-testid='test-td3'>Pilot id</th>
-                </>
-            )}
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Phone number</th>
-            <th>Closed distance (in metres)</th>
-            {extendedView && (
-                <>
-                    <th data-testid='test-th4'>Previous closest distance</th>
-                </>
-            )}
+                <tr>
+                {extendedView && (
+                    <>
+                        <th data-testid='test-th1'>#</th>
+                        <th data-testid='test-th2'>Time</th>
+                        <th data-testid='test-td3'>Pilot id</th>
+                    </>
+                )}
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Closed distance (in metres)</th>
+                {extendedView && (
+                    <>
+                        <th data-testid='test-th4'>Previous closest distance</th>
+                    </>
+                )}
+                </tr>
             </thead>
             <tbody>
             {violators.map((violator, index) => <tr key={violator.pilotId}>
