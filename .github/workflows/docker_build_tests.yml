@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: "16"
       - run: npm ci
-      - run: npm run test:start
+      - run: npm run test
   push_docker:
     name: Push Docker
     needs: run_tests
