@@ -37,24 +37,37 @@ sudo docker pull ghcr.io/alari777/project-birdnest/project-birdnest:latest
 sudo docker images
 
 # to start docker container based on this image 
-# map port 3000 in the container to port 8080 on the Docker host
+# map port 3000 in the container to port 80 on the Docker host
 # name of container `bird`
 # "-d" flag causes Docker to start the container in "detached" mode
-sudo docker run -p 8080:3000 -d --name bird ghcr.io/alari777/project-birdnest/project-birdnest:latest
+sudo docker run -p 80:3000 -d --name bird ghcr.io/alari777/project-birdnest/project-birdnest:latest
 
 # to see running containers
 sudo docker ps
 
-# to see logs (last 300 records) in real time for this container called `bird`
+# to see logs (for example last 300 log-records) in real time for this container called `bird`
 sudo docker logs --tail 300 -f bird
 ```
 
 # Tests
+To start tests: `npm run test`
+![Image alt](./screenshots/readme/tests/tests.PNG)
 
-# Github actions
+To start coverage of tests: `npm run test:coverage`
+![Image alt](./screenshots/readme/tests/tests-coverage.PNG)
+
+# GitHub actions
+After creating `pull request` this project runs two GitHub actions: `run_tests` and `push_docker`.
+You can find them in folder `.github/workflows/`.
+
+- Action `run_tests` runs tests.
+- Action `push_docker` creates Docker image of this project and pushes it in GitHub package.
+This action depends on `run_tests`
 
 # How it works
 
 ## Diagramma
 
 ## Structure of project
+
+# Sprints
