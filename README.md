@@ -51,10 +51,10 @@ sudo docker logs --tail 300 -f bird
 
 # Tests
 To start tests: `npm run test`
-![Image alt](./screenshots/readme/tests/tests.PNG)
+![completed tests](./screenshots/readme/tests/tests.PNG)
 
 To start coverage of tests: `npm run test:coverage`
-![Image alt](./screenshots/readme/tests/tests-coverage.PNG)
+![tests coverage](./screenshots/readme/tests/tests-coverage.PNG)
 
 # GitHub actions
 After creating `pull request` this project runs two GitHub actions: `run_tests` and `push_docker`.
@@ -66,8 +66,29 @@ This action depends on `run_tests`
 
 # How it works
 
-## Diagramma
+## Diagram
+![figma diagram variant #1](./screenshots/readme/diagram/figma-diagram-1.png)
 
 ## Structure of project
+- Frontend side:
+  - Index page consists `Header`, `Home` and `Footer` components. 
+  `Header` and `Footer` are very simple static functional components.
+  They have snapshots tests. You can find them in folder `/components/__snapshots__`.
+  - `Home` component includes child component called `TableViolators`. 
+  This table where is showing the current violators.
+  - One util function in the folder `/utils/formatTime` defines how to show time to user and what is form of it at the screen.
+  It is UTC time.
+- Backend side:
+  - Singleton class
+  - The service in the folder `pages/api/services` is just wrapper for:
+    - calling util function in order to find violators; 
+    - working with `store Map()` collection and store there violator-pilots.
+  - Two helpers in the folder `pages/api/helpers` help to work
+  with third party API in order to get information about each violator and to form response on request for front-end client. 
+  - The util function in the folder `pages/api/utils` gets and returns 
+  all violators drones via third party API
+  - Each script has own tests
+
+![backend side](./screenshots/readme/structure-of-project/backend-side.PNG)
 
 # Sprints
