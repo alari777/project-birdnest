@@ -66,6 +66,38 @@ This action depends on `run_tests`
 
 # How it works
 
+According to the conditions of the task the snapshot of all the drones is taken on an area of 500 by 500 meters and is updated approximately once every 2 seconds.
+The no-fly zone or in other words `no drone zone (**NDZ**)` is a circle with a radius of 100 meters.
+The origin is point with next one coordinate `x0: 250000, y0: 250000`.
+
+```
+A little note: 500 meters is 500 * 100 * 10 = 500,000 millimeters, so the picture is taken on an area of 500,000x500,000 millimeters.
+The no-fly zone is a circle with a radius of 100 * 100 * 10 = 100,000 millimeters.
+Thus, we make the coordinates of the drones and cordinates from snapshot to "same origin system".
+```
+
+Each drone, according to the specification of the task, has coordinates. 
+The origin of coordinates is x0: 250000 and y0: 250000. 
+To understand whether the drone is a violator necessary to use the next formula: `sqrt((x0 - x)*(x0 - x) + (y0 - y)*(y0 - y))`.
+`x0 and y0` - it is the origin and `x and y` - it is coordinate of current drone.
+
+If this number is less than 100 * 100 * 10 (that's a hundred meters radius), then the drone is a violator.
+
+After we got the drones violators we can get detailed information about the pilot of each these drones.
+
+If the response has a code 200 (which means that we got a response from the API), then we can do two operations with the storage (pilots of drones violators are stored there):
+- If there is no pilot, then we can add it
+- If there is a pilot, then we need to check if its CURRENT distance is closer to the nest than his PREVIOUS distance. 
+If it is true, so we need to update information about this pilot in our `Map collection`. 
+If it is false so we do nothing. 
+Thus, we always store the closest distance to the nest that this pilot had.
+
+Next thing, we know the current time, we know the time when the violator drone was detected.
+Thus, we remove from the `Map collection` "records about intruder pilots" that are more than 10 minutes old.
+
+As a result, we have a collection of violators pilots for the last 10 minutes and who have the closest distance to the nest saved.
+Thus, we form the response object to the client.
+
 ## Diagram
 ![figma diagram variant #1](./screenshots/readme/diagram/figma-diagram-1.png)
 
@@ -92,3 +124,59 @@ This action depends on `run_tests`
 ![backend side](./screenshots/readme/structure-of-project/backend-side.PNG)
 
 # Sprints
+
+I have decided to work on this project as if it is real production project. For this reason I have decided to separate this task on some sprints with clear deadlines in my head and clear understanding what happen on each sprint:
+- Investigation and choosing set of tools and the approach how to do this project.
+- Basic project skeleton: backend/frontend
+- Simple UI
+- TypeScript
+- Tests
+- GitHub action: `tests`
+- Deploy at Vercel
+- Docker
+  - Dockerfile
+  - One more GitHub action: `Docker push` at GitHub package
+- Readme.md, some refactoring and PostMan
+
+
+First sprint. I have decided to take NextJs because this variant has SSR and React. 
+And store is just `Map() collection` at JS.
+
+I had some variants in my head like PHP+JS, React+ExpressJS or just React with polling.
+For storing data I can take DB like MySQL or MongoDB or noSQL like Redis.
+Also, I had variant where is using Redis pub/sub.
+
+In my opinion all these ways are too redundant and complex, and I can use better way.
+
+Actually, I think it is NextJS with SSR+React under hood. Map collection is a good way in order to store these data because
+To use any DBs is also too redundant and complex for this task.
+
+Next one sprint.
+That was development of both sides.
+
+Next one sprint.
+That was adding basic UI in order to show table with violators-pilots.
+Also, there you can find expended version (just to use checkbox) where is providing some additional information about each pilot violator. 
+
+Next one sprint.
+TypeScript is good solution in order to get strict typing. We can add it at any step of project.
+
+Next one sprint.
+I think that a better way to add `tests` before development, but I had investigating what kind of development I have to choose.
+Next one sprint. It is very important thing to run tests before merge with main branch on GitHub.
+
+Next one sprint.
+Vercel is mother company for NextJS so this company provides deploy service for applications which were created at NextJs.
+This their feature goes from the box.
+It is a good thing because application is hosted at free hosting and Vercel system gets new commits from GitHub automatically and then redeploy application.
+
+Next one sprint.
+Docker is very good tool to run application on any machine. For example, I have run this application
+on gcloud instance in few steps.
+I use simple Dockerfile because this application provides just one container. If application has some containers so in that case a better way to use `docker-compose`.
+
+Next one sprint.
+It is necessary to fill this README.md.
+There will a little refactoring some pixels of code.
+Also, I think it will a good thing to use Postman in order to keep frontend endpoints because
+this application can be expanded, in theory.
