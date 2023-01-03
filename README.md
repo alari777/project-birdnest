@@ -32,7 +32,7 @@ I have decided to work on this project as if it is real production project. For 
 1. First sprint.  
    I have decided to take NextJs because this variant has SSR and React.
    And store is just `Map() collection` at JS.  
-   I had some variants in my head like PHP+JS, React+ExpressJS or just React with polling.
+   I had some variants in my head like PHP, PHP+JS, React+ExpressJS or just React with polling.
    For storing data I can take DB like MySQL or MongoDB or noSQL like Redis.
    Also, I had variant where is using Redis pub/sub.  
    In my opinion all these ways are too redundant and complex, and I can use better way.  
@@ -80,7 +80,9 @@ You have next ones way how to run this application:
   - Or at [Project Birdnest at custom my instance](http://34.23.45.250/). It is my custom instance at `google.cloud` where is running dicker container with this project. That is a better way to see how this application works.
   - Or at [Project Birdnest at Vercel](https://project-birdnest.vercel.app/). It is subdomain of `vercel` company ([https://vercel.com](https://vercel.com/) , which provides and supports NextJS). The application was deployed at this subdomain too.
 - Please create new folder at your local machine.  
-Be sure that you have [nodejs](https://nodejs.org/en/) and `npm`.  
+Be sure that you have:
+  - [nodejs](https://nodejs.org/en/). Open your terminal and type `node --version`. At least `NodeJS` version is 16.0.0 or higher 
+  - `npm`. Open your terminal and type `npm --version`. At least `npm` version is 8.1.2 or higher
 Go inside it and run next command:  
 ```
 # Clone this repository  
@@ -102,33 +104,39 @@ npm run
 Then lets go on `https://github.com/alari777/project-birdnest/pkgs/container/project-birdnest%2Fproject-birdnest`.  
 Open your terminal and please type next commands:  
 ```bash
-# to pull latest docker image of this project
+# To pull latest docker image of this project
 sudo docker pull ghcr.io/alari777/project-birdnest/project-birdnest:latest
 
-# to see docker images
+# To see docker images
 sudo docker images
 
-# to start docker container based on this image 
+# To start docker container based on this image 
 # map port 3000 in the container to port 80 on the Docker host
 # name of container `bird`
 # "-d" flag causes Docker to start the container in "detached" mode
 sudo docker run -p 80:3000 -d --name bird ghcr.io/alari777/project-birdnest/project-birdnest:latest
 
-# to see running containers
+# To see running containers
 sudo docker ps
 
-# to see logs (for example last 300 log-records) in real time for this container called `bird`
+# To see logs (for example last 300 log-records) in real time for this container called `bird`
 sudo docker logs --tail 300 -f bird
-```
+```  
+You can open and see hot this application works at:
+[Project Birdnest at custom my instance](http://34.23.45.250/)
 
 # Tests
-To start tests: `npm run test`
+
+To start tests: `npm run test`  
+
 ![completed tests](./screenshots/readme/tests/tests.PNG)
 
-To start coverage of tests: `npm run test:coverage`
+To start coverage of tests: `npm run test:coverage`  
+
 ![tests coverage](./screenshots/readme/tests/tests-coverage.PNG)
 
 # GitHub actions
+
 After creating `pull request` this project runs two GitHub actions: `run_tests` and `push_docker`.
 You can find them in folder `.github/workflows/`.
 
@@ -171,9 +179,11 @@ As a result, we have a collection of violators pilots for the last 10 minutes an
 Thus, we form the response object to the client.
 
 ## Diagram
+
 ![figma diagram variant #1](./screenshots/readme/diagram/figma-diagram-1.png)
 
 ## Structure of project
+
 - Frontend side:
   - Index page consists `Header`, `Home` and `Footer` components. 
   `Header` and `Footer` are very simple static functional components.
