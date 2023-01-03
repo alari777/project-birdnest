@@ -2,18 +2,74 @@
 
 ## Introducing and what is the objective
 
-This is "Project Birdnest" where is needed to monitor no drone zone (NDZ) 
+This is "Project Birdnest" where is needed to monitor no drone zone (NDZ). 
 
-Build and deploy a web application which lists all the pilots who recently violated the NDZ perimeter.
+To build and deploy a web application which lists all the pilots who recently violated the NDZ perimeter.
 
-What it looks like is up to you, but this list should
+Objective:
+- Persist the pilot information for 10 minutes since their drone was last seen by the equipment. 
+- Display the closest confirmed distance to the nest.
+- Contain the pilot name, email address and phone number.
+- Immediately show the information from the last 10 minutes to anyone opening the application
+- Not require the user to manually refresh the view to see up-to-date information.
 
-Persist the pilot information for 10 minutes since their drone was last seen by the equipment
-Display the closest confirmed distance to the nest
-Contain the pilot name, email address and phone number
-Immediately show the information from the last 10 minutes to anyone opening the application
-Not require the user to manually refresh the view to see up-to-date information
+# Sprints
 
+I have decided to work on this project as if it is real production project. For this reason I have decided to separate this task on some sprints with clear deadlines in my head and clear understanding what happen on each sprint:
+- Investigation and choosing set of tools and the approach how to do this project.
+- Basic project skeleton: backend/frontend
+- Simple UI
+- TypeScript
+- Tests
+- GitHub action: `tests`
+- Deploy at Vercel
+- Docker
+  - Dockerfile
+  - One more GitHub action: `Docker push` at GitHub package
+- Readme.md, some refactoring and PostMan
+
+
+1. First sprint.  
+   I have decided to take NextJs because this variant has SSR and React.
+   And store is just `Map() collection` at JS.  
+   I had some variants in my head like PHP+JS, React+ExpressJS or just React with polling.
+   For storing data I can take DB like MySQL or MongoDB or noSQL like Redis.
+   Also, I had variant where is using Redis pub/sub.  
+   In my opinion all these ways are too redundant and complex, and I can use better way.  
+   Actually, I think it is NextJS with SSR+React under hood. Map collection is a good way in order to store these data because
+   To use any DBs is also too redundant and complex for this task.
+
+2. Next one sprint.  
+   That was development of both sides.
+
+3. Next one sprint.  
+   That was adding basic UI in order to show table with violators-pilots.
+   Also, there you can find expended version (just to use checkbox) where is providing some additional information about each pilot violator.
+
+4. Next one sprint.  
+   TypeScript is good solution in order to get strict typing. We can add it at any step of project.
+
+5. Next one sprint.  
+   I think that a better way to add `tests` before development, but I had investigating what kind of development I have to choose.
+
+6. Next one sprint.  
+   It is very important thing to run tests before merge with main branch on GitHub.
+
+7. Next one sprint.  
+   Vercel is mother company for NextJS so this company provides deploy service for applications which were created at NextJs.
+   This their feature goes from the box.
+   It is a good thing because application is hosted at free hosting and Vercel system gets new commits from GitHub automatically and then redeploy application.
+
+8. Next one sprint.  
+   Docker is very good tool to run application on any machine. For example, I have run this application
+   on gcloud instance in few steps.
+   I use simple Dockerfile because this application provides just one container. If application has some containers so in that case a better way to use `docker-compose`.
+
+9. Next one sprint.  
+   It is necessary to fill this README.md.
+   There will a little refactoring some pixels of code.
+   Also, I think it will a good thing to use Postman in order to keep frontend endpoints because
+   this application can be expanded, in theory.
 
 # How to start
 
@@ -23,12 +79,28 @@ You have next ones way how to run this application:
 - You can see directly and now how this application works at: 
   - Or at [Project Birdnest at custom my instance](http://34.23.45.250/). It is my custom instance at `google.cloud` where is running dicker container with this project. That is a better way to see how this application works.
   - Or at [Project Birdnest at Vercel](https://project-birdnest.vercel.app/). It is subdomain of `vercel` company ([https://vercel.com](https://vercel.com/) , which provides and supports NextJS). The application was deployed at this subdomain too.
-- Please create new folder at your local machine. Go inside it and run next command `git clone https://github.com/alari777/project-birdnest.git .`
-Be sure that you have `nodejs` and `npm`. Link: `https://nodejs.org/en/`. Better way to take `nvm` tool, link: . 
-Next complete `npm ci`. In order to start this application in dev mode then type `npm run dev`, this application will start
-on [http://localhost:3000](http://localhost:3000) . In order to build application complete please `npm build` and then `npm run` .
-- Using `Docker`. For this one you need to install Docker at your machine (server). Link: . Then lets go on `https://github.com/alari777/project-birdnest/pkgs/container/project-birdnest%2Fproject-birdnest` and copy please 
-`docker pull ghcr.io/alari777/project-birdnest/project-birdnest:latest`. Then:
+- Please create new folder at your local machine.  
+Be sure that you have [nodejs](https://nodejs.org/en/) and `npm`.  
+Go inside it and run next command:  
+```
+# Clone this repository  
+git clone https://github.com/alari777/project-birdnest.git .`
+
+# Install all dependencies   
+npm ci
+
+# In order to start this application in dev mode
+# This application will start on [http://localhost:3000](http://localhost:3000)    
+npm run dev 
+
+# In order to build application complete please  
+npm build  
+npm run
+```
+- Using `Docker`. For this one you need to install Docker at your machine (server).
+[Docker](https://docs.docker.com/get-docker/).  
+Then lets go on `https://github.com/alari777/project-birdnest/pkgs/container/project-birdnest%2Fproject-birdnest`.  
+Open your terminal and please type next commands:  
 ```bash
 # to pull latest docker image of this project
 sudo docker pull ghcr.io/alari777/project-birdnest/project-birdnest:latest
@@ -122,61 +194,3 @@ Thus, we form the response object to the client.
   - Each script has own tests
 
 ![backend side](./screenshots/readme/structure-of-project/backend-side.PNG)
-
-# Sprints
-
-I have decided to work on this project as if it is real production project. For this reason I have decided to separate this task on some sprints with clear deadlines in my head and clear understanding what happen on each sprint:
-- Investigation and choosing set of tools and the approach how to do this project.
-- Basic project skeleton: backend/frontend
-- Simple UI
-- TypeScript
-- Tests
-- GitHub action: `tests`
-- Deploy at Vercel
-- Docker
-  - Dockerfile
-  - One more GitHub action: `Docker push` at GitHub package
-- Readme.md, some refactoring and PostMan
-
-
-1. First sprint.  
-I have decided to take NextJs because this variant has SSR and React. 
-And store is just `Map() collection` at JS.  
-I had some variants in my head like PHP+JS, React+ExpressJS or just React with polling.
-For storing data I can take DB like MySQL or MongoDB or noSQL like Redis.
-Also, I had variant where is using Redis pub/sub.  
-In my opinion all these ways are too redundant and complex, and I can use better way.  
-Actually, I think it is NextJS with SSR+React under hood. Map collection is a good way in order to store these data because
-To use any DBs is also too redundant and complex for this task.
-
-2. Next one sprint.  
-That was development of both sides.
-
-3. Next one sprint.  
-That was adding basic UI in order to show table with violators-pilots.
-Also, there you can find expended version (just to use checkbox) where is providing some additional information about each pilot violator. 
-
-4. Next one sprint.  
-TypeScript is good solution in order to get strict typing. We can add it at any step of project.
-
-5. Next one sprint.  
-I think that a better way to add `tests` before development, but I had investigating what kind of development I have to choose.
-
-6. Next one sprint.  
-It is very important thing to run tests before merge with main branch on GitHub.
-
-7. Next one sprint.  
-Vercel is mother company for NextJS so this company provides deploy service for applications which were created at NextJs.
-This their feature goes from the box.
-It is a good thing because application is hosted at free hosting and Vercel system gets new commits from GitHub automatically and then redeploy application.
-
-8. Next one sprint.  
-Docker is very good tool to run application on any machine. For example, I have run this application
-on gcloud instance in few steps.
-I use simple Dockerfile because this application provides just one container. If application has some containers so in that case a better way to use `docker-compose`.
-
-9. Next one sprint.  
-It is necessary to fill this README.md.
-There will a little refactoring some pixels of code.
-Also, I think it will a good thing to use Postman in order to keep frontend endpoints because
-this application can be expanded, in theory.
