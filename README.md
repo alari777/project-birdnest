@@ -139,43 +139,43 @@ I have decided to work on this project as if it is real production project. For 
 - Readme.md, some refactoring and PostMan
 
 
-First sprint. I have decided to take NextJs because this variant has SSR and React. 
-And store is just `Map() collection` at JS.
-
+1. First sprint.  
+I have decided to take NextJs because this variant has SSR and React. 
+And store is just `Map() collection` at JS.  
 I had some variants in my head like PHP+JS, React+ExpressJS or just React with polling.
 For storing data I can take DB like MySQL or MongoDB or noSQL like Redis.
-Also, I had variant where is using Redis pub/sub.
-
-In my opinion all these ways are too redundant and complex, and I can use better way.
-
+Also, I had variant where is using Redis pub/sub.  
+In my opinion all these ways are too redundant and complex, and I can use better way.  
 Actually, I think it is NextJS with SSR+React under hood. Map collection is a good way in order to store these data because
 To use any DBs is also too redundant and complex for this task.
 
-Next one sprint.
+2. Next one sprint.  
 That was development of both sides.
 
-Next one sprint.
+3. Next one sprint.  
 That was adding basic UI in order to show table with violators-pilots.
 Also, there you can find expended version (just to use checkbox) where is providing some additional information about each pilot violator. 
 
-Next one sprint.
+4. Next one sprint.  
 TypeScript is good solution in order to get strict typing. We can add it at any step of project.
 
-Next one sprint.
+5. Next one sprint.  
 I think that a better way to add `tests` before development, but I had investigating what kind of development I have to choose.
-Next one sprint. It is very important thing to run tests before merge with main branch on GitHub.
 
-Next one sprint.
+6. Next one sprint.  
+It is very important thing to run tests before merge with main branch on GitHub.
+
+7. Next one sprint.  
 Vercel is mother company for NextJS so this company provides deploy service for applications which were created at NextJs.
 This their feature goes from the box.
 It is a good thing because application is hosted at free hosting and Vercel system gets new commits from GitHub automatically and then redeploy application.
 
-Next one sprint.
+8. Next one sprint.  
 Docker is very good tool to run application on any machine. For example, I have run this application
 on gcloud instance in few steps.
 I use simple Dockerfile because this application provides just one container. If application has some containers so in that case a better way to use `docker-compose`.
 
-Next one sprint.
+9. Next one sprint.  
 It is necessary to fill this README.md.
 There will a little refactoring some pixels of code.
 Also, I think it will a good thing to use Postman in order to keep frontend endpoints because
