@@ -1,6 +1,6 @@
 import { ViolatorType } from '../../../types/violators.type';
 import { formViolatorsPilots } from '../helpers/formViolatorsPilots/formViolatorsPilots';
-import { startApplicationService } from '../services/startApplicationService/startApplicationService'
+import { startApplicationService } from '../services/startApplicationService/startApplicationService';
 
 export class Pilots {
   private static instance: Pilots;
@@ -20,7 +20,10 @@ export class Pilots {
     return Pilots.instance;
   }
 
-  public bootstrap = async(): Promise<{ pilots: ViolatorType[]; atr_snapshotTimestamp: string }> => {
+  public bootstrap = async (): Promise<{
+    pilots: ViolatorType[];
+    atr_snapshotTimestamp: string;
+  }> => {
     if (!this.startAppFlag) {
       await startApplicationService();
       this.startAppFlag = true;
@@ -30,8 +33,7 @@ export class Pilots {
 
     return {
       pilots,
-      atr_snapshotTimestamp: this.atrSnapshotTimestamp
+      atr_snapshotTimestamp: this.atrSnapshotTimestamp,
     };
-  }
+  };
 }
-
