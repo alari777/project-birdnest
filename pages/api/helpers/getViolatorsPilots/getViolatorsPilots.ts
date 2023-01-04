@@ -12,6 +12,8 @@ export async function getViolatorsPilots(
         const responsePilot = await fetch(
           `https://assignments.reaktor.com/birdnest/pilots/${dron.serialNumber}`
         );
+        // If `status` is 200 then all things are OK: we have got the pilot.
+        // Sometimes we can get error, like 404 (not found) so in that case we just skip this pilot.
         if (responsePilot.status === 200) {
           const resultPilot: ViolatorType = await responsePilot.json();
           // resultPilot.atr_snapshotTimestamp = instance.atrSnapshotTimestamp;

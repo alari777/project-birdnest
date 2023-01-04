@@ -33,7 +33,7 @@ I have decided to work on this project as if it is real production project. For 
 1. First sprint.  
    I have decided to take NextJs because this variant has SSR and React.
    And store is just `Map() collection` at JS.  
-   I had some variants in my head like PHP, PHP+JS, React+ExpressJS or just React with polling.
+   I had some variants like PHP, PHP+JS, React+ExpressJS or just React with polling.
    For storing data I can take DB like MySQL or MongoDB or noSQL like Redis.
    Also, I had variant where is using Redis pub/sub.  
    In my opinion all these ways are too redundant and complex, and I can use better way.  

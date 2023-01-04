@@ -4,15 +4,17 @@ import {
   mockXmlWithViolators,
   mockResponseJsonGetDrones,
 } from '../../classes/mock.data.pilots';
+import { FetchMock } from 'jest-fetch-mock';
+const fetchMock = fetch as FetchMock;
 
 describe('testing function getDrones()', () => {
   beforeEach(() => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
     jest.clearAllMocks();
   });
 
   it('should return empty array, status code is 200, no violators', async () => {
-    fetch.mockResponseOnce(mockXmlWithoutViolators, {
+    fetchMock.mockResponseOnce(mockXmlWithoutViolators, {
       status: 200,
       headers: { 'content-type': 'text/plain' },
     });
@@ -24,7 +26,7 @@ describe('testing function getDrones()', () => {
   });
 
   it('should return empty array, status code is 404, no violators', async () => {
-    fetch.mockResponseOnce(mockXmlWithoutViolators, {
+    fetchMock.mockResponseOnce(mockXmlWithoutViolators, {
       status: 404,
       headers: { 'content-type': 'text/plain' },
     });
@@ -36,7 +38,7 @@ describe('testing function getDrones()', () => {
   });
 
   it('should return array with length equals 3, status code is 200, there are violators', async () => {
-    fetch.mockResponseOnce(mockXmlWithViolators, {
+    fetchMock.mockResponseOnce(mockXmlWithViolators, {
       status: 200,
       headers: { 'content-type': 'text/plain' },
     });
@@ -48,7 +50,7 @@ describe('testing function getDrones()', () => {
   });
 
   it('should return empty array, status code is 404, there are violators', async () => {
-    fetch.mockResponseOnce(mockXmlWithViolators, {
+    fetchMock.mockResponseOnce(mockXmlWithViolators, {
       status: 404,
       headers: { 'content-type': 'text/plain' },
     });
@@ -60,7 +62,7 @@ describe('testing function getDrones()', () => {
   });
 
   it('the fetch fails with an error', async () => {
-    fetch.mockRejectOnce(new Error('test: the fetch fails with an error'));
+    fetchMock.mockRejectOnce(new Error('test: the fetch fails with an error'));
     const result = await getDrones();
     expect(result).toEqual({
       violators: [],
