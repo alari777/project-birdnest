@@ -3,7 +3,12 @@
   "author": "Toivo Ilmast",
   "version": "0.1.0",
   "description": "It is monitoring project for birdnest in order to detect drone-violators and to show these ones.",
-  "keywords": ["drone-violators", "birdnest", "NLZ", "nextjs"],
+  "keywords": [
+    "drone-violators",
+    "birdnest",
+    "NLZ",
+    "nextjs"
+  ],
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -35,6 +40,7 @@
     "jest-environment-jsdom": "^29.3.1",
     "jest-fetch-mock": "^3.0.3",
     "next-test-api-route-handler": "^3.1.7",
+    "prettier": "2.8.1",
     "typescript": "^4.9.4"
   }
 }
