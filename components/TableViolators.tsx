@@ -18,7 +18,7 @@ const TableViolators: FC<TableViolatorsProps> = ({
           {extendedView && (
             <>
               <th data-testid='test-th1'>#</th>
-              <th data-testid='test-th2'>Time</th>
+              <th data-testid='test-th2'>Time (UTC)</th>
               <th data-testid='test-td3'>Pilot id</th>
             </>
           )}

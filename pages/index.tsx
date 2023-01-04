@@ -42,7 +42,7 @@ const Home = () => {
   };
 
   if (!isLoaded) {
-    return <h2>Wait a little bit, please. Data are loading ...</h2>;
+    return <h2>Wait a little bit. Data are loading ...</h2>;
   }
 
   return (
@@ -60,7 +60,7 @@ const Home = () => {
       {isLoaded && (
         <>
           <h3 data-testid='snapshot-time'>
-            Current snapshot time: {snapshotTimestamp}
+            Current snapshot time (UTC): {snapshotTimestamp}
           </h3>
           <TableViolators violators={violators} extendedView={extendedView} />
         </>
