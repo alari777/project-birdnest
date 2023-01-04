@@ -1,6 +1,6 @@
 # Getting Started
 
-## Introducing
+## Introduction
 
 This is "Project Birdnest", that is made to monitor no drone zone (NDZ). 
 
@@ -179,7 +179,9 @@ Thus, we remove from the `Map collection` "records about intruder pilots" that a
 As a result, we have a collection of violators pilots for the last 10 minutes and who have the closest distance to the nest saved.
 Thus, we form the response object to the client.
 
-## Diagram
+## Scheme
+
+Below you can see the scheme created at Figma how this application works.  
 
 ![figma diagram variant #1](./screenshots/readme/diagram/figma-diagram-1.png)
 
