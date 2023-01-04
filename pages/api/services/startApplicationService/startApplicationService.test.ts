@@ -3,12 +3,14 @@ jest.spyOn(global, 'setTimeout');
 
 import { mockXmlWithoutViolators } from '../../classes/mock.data.pilots';
 import { startApplicationService } from './startApplicationService';
+import { FetchMock } from 'jest-fetch-mock';
+const fetchMock = fetch as FetchMock;
 
 describe('testing function startApplicationService()', () => {
   it('startApplicationService working', async () => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
     jest.clearAllMocks();
-    fetch.mockResponse(mockXmlWithoutViolators, {
+    fetchMock.mockResponse(mockXmlWithoutViolators, {
       status: 200,
       headers: { 'content-type': 'text/plain' },
     });

@@ -1,9 +1,11 @@
 import { mockJsonViolators, mockPilot } from '../../classes/mock.data.pilots';
 import { getViolatorsPilots } from './getViolatorsPilots';
+import { FetchMock } from 'jest-fetch-mock';
+const fetchMock = fetch as FetchMock;
 
 describe('testing function getViolatorsPilots()', () => {
   beforeEach(() => {
-    fetch.resetMocks();
+    fetchMock.resetMocks();
     jest.clearAllMocks();
 
     Map.prototype.has = jest.fn().mockReturnValue(true);
@@ -11,7 +13,7 @@ describe('testing function getViolatorsPilots()', () => {
   });
 
   it('return VOID, status code of pilot is 200, map.has, map.get, map.delete are called, distance is 100', async () => {
-    fetch.mockResponse(JSON.stringify(mockJsonViolators), {
+    fetchMock.mockResponse(JSON.stringify(mockJsonViolators), {
       status: 200,
       headers: { 'content-type': 'application/json' },
     });
@@ -28,7 +30,7 @@ describe('testing function getViolatorsPilots()', () => {
     expect(Map.prototype.delete).toHaveBeenCalled();
   });
   it('return VOID, status code of pilot is 200, map.has, map.get, map.delete are called, distance is 1', async () => {
-    fetch.mockResponse(JSON.stringify(mockJsonViolators), {
+    fetchMock.mockResponse(JSON.stringify(mockJsonViolators), {
       status: 200,
       headers: { 'content-type': 'application/json' },
     });
@@ -46,7 +48,7 @@ describe('testing function getViolatorsPilots()', () => {
   });
 
   it('return VOID, status code of pilot is 404, map.has, map.get, map.delete are not called', async () => {
-    fetch.mockResponse(JSON.stringify(mockJsonViolators), {
+    fetchMock.mockResponse(JSON.stringify(mockJsonViolators), {
       status: 404,
       headers: { 'content-type': 'application/json' },
     });
