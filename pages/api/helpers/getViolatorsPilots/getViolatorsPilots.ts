@@ -14,7 +14,7 @@ export async function getViolatorsPilots(
         );
         if (responsePilot.status === 200) {
           const resultPilot: ViolatorType = await responsePilot.json();
-          resultPilot.atr_snapshotTimestamp = instance.atrSnapshotTimestamp;
+          // resultPilot.atr_snapshotTimestamp = instance.atrSnapshotTimestamp;
           const newDistance = dron.newDistance;
           let oldDistance = dron.newDistance;
           let previousDistance = '';

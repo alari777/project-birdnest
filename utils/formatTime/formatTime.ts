@@ -22,5 +22,5 @@ export function formatTime(dateTime: string): string {
   const seconds: string =
     secondsUTC < 10 ? `0${secondsUTC}` : String(secondsUTC);
 
-  return `${day}.${month}.${year} ${hours}:${minutes}:${seconds} in UTC`;
+  return `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
 }
