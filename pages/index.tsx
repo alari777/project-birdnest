@@ -26,7 +26,7 @@ const Home = () => {
     } catch (err) {
       setIsLoaded(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchData().then();
@@ -39,35 +39,34 @@ const Home = () => {
 
   const handleExtendedViewChange = () => {
     setExtendedView(!extendedView);
-  }
+  };
 
   if (!isLoaded) {
-    return <h2>Wait a little bit, please. Data are loading ...</h2>
+    return <h2>Wait a little bit, please. Data are loading ...</h2>;
   }
 
   return (
     <div>
       <label>
         <input
-            type='checkbox'
-            id='extendedView'
-            data-testid='test-extendedView'
-            name='extendedView'
-            onChange={handleExtendedViewChange}
+          type='checkbox'
+          id='extendedView'
+          data-testid='test-extendedView'
+          name='extendedView'
+          onChange={handleExtendedViewChange}
         />
         Extended View
       </label>
       {isLoaded && (
         <>
-          <h3 data-testid='snapshot-time'>Current snapshot time: {snapshotTimestamp}</h3>
-          <TableViolators
-              violators={violators}
-              extendedView={extendedView}
-          />
+          <h3 data-testid='snapshot-time'>
+            Current snapshot time: {snapshotTimestamp}
+          </h3>
+          <TableViolators violators={violators} extendedView={extendedView} />
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Home;
