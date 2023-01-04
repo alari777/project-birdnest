@@ -16,6 +16,11 @@ export async function getViolatorsPilots(violators: DroneType[]): Promise<void> 
                 let oldTime = instance.atrSnapshotTimestamp;
                 resultPilot.status = '';
                 resultPilot.previousDistance = '';
+                // If current pilot are exist in store then:
+                // 1. Keep its `Previous Distance` to the nest
+                // 2. Keep its `Current Distance` to the nest
+                // 3. Keep its `snapshotTimestamp`
+                // 4. Remove this pilot from store
                 if (instance.map.has(resultPilot.pilotId)) {
                     oldDistance = Number(instance.map.get(resultPilot.pilotId).distance);
                     previousDistance = String(instance.map.get(resultPilot.pilotId).previousDistance);
