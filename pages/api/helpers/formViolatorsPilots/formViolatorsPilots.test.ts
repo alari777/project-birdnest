@@ -11,10 +11,16 @@ describe('testing function formViolatorsPilots()', () => {
     const instance = Pilots.init();
     const dateMock = String(new Date());
     instance.map.set('A-tKIx1XAwwU', {
+      email: '',
+      firstName: '',
+      phoneNumber: '',
       pilotId: 'A-tKIx1XAwwU',
       atr_snapshotTimestamp: '2021-09-16T14:44:02.991Z',
     });
     instance.map.set('B-tKIx1XAwwU', {
+      email: '',
+      firstName: '',
+      phoneNumber: '',
       pilotId: 'B-tKIx1XAwwU',
       atr_snapshotTimestamp: '2021-09-16T14:44:02.991Z',
     });

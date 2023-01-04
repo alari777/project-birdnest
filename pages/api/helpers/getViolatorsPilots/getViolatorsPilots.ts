@@ -21,7 +21,9 @@ export async function getViolatorsPilots(
           let oldTime = instance.atrSnapshotTimestamp;
           resultPilot.status = '';
           resultPilot.previousDistance = '';
-          // If current pilot are exist in store then:
+
+          // Below pixel of code makes next things.
+          // If current pilot IS EXIST in store then:
           // 1. Keep its `Previous Distance` to the nest
           // 2. Keep its `Current Distance` to the nest
           // 3. Keep its `snapshotTimestamp`
@@ -38,23 +40,33 @@ export async function getViolatorsPilots(
             ).atr_snapshotTimestamp;
             instance.map.delete(resultPilot.pilotId);
           }
+
+          // Next thing we need to compare `the new distance` and `the old distance` of the pilot
+          // Actually this pilot can be `new` but in that case these values equal `0` and we pass this condition.
           if (newDistance < oldDistance) {
+            // Here we have to update distances and status
             resultPilot.previousDistance = String(oldDistance);
             resultPilot.distance = newDistance;
             resultPilot.status = DistanceStatusEnum.UPDATE;
+
+            // It is very important code.
+            // Here we need to updating time if this pilot has new closest distance.
             oldTime = instance.atrSnapshotTimestamp;
           } else {
+            // We keep the data about the pilot as is
             resultPilot.previousDistance = previousDistance;
             resultPilot.distance = oldDistance;
             resultPilot.status =
               previousDistance === '' ? '' : DistanceStatusEnum.UPDATE;
           }
 
+          // Set final time for each pilot
           resultPilot.atr_snapshotTimestamp = oldTime;
           if (
             resultPilot.atr_snapshotTimestamp !== '' &&
             typeof resultPilot.atr_snapshotTimestamp !== undefined
           ) {
+            // Save this object of pilot with all its data in Map() collection (in store)
             instance.map.set(resultPilot.pilotId, resultPilot);
           }
         }
