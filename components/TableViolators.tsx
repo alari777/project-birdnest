@@ -25,7 +25,7 @@ const TableViolators: FC<TableViolatorsProps> = ({
                 <th>First Name</th>
                 <th>Email</th>
                 <th>Phone number</th>
-                <th>Closed distance (in metres)</th>
+                <th>Closest distance (in meters)</th>
                 {extendedView && (
                     <>
                         <th data-testid='test-th4'>Previous closest distance</th>

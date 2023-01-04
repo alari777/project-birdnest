@@ -1,12 +1,13 @@
 # Getting Started
 
-## Introducing and what is the objective
+## Introducing
 
-This is "Project Birdnest" where is needed to monitor no drone zone (NDZ). 
+This is "Project Birdnest", that is made to monitor no drone zone (NDZ). 
 
 To build and deploy a web application which lists all the pilots who recently violated the NDZ perimeter.
 
-Objective:
+## Objective
+
 - Persist the pilot information for 10 minutes since their drone was last seen by the equipment. 
 - Display the closest confirmed distance to the nest.
 - Contain the pilot name, email address and phone number.
@@ -15,7 +16,7 @@ Objective:
 
 # Sprints
 
-I have decided to work on this project as if it is real production project. For this reason I have decided to separate this task on some sprints with clear deadlines in my head and clear understanding what happen on each sprint:
+I have decided to work on this project as if it is real production project. For this reason I have decided to separate this task into few sprints with clear deadlines and understanding what happen on each sprint:
 - Investigation and choosing set of tools and the approach how to do this project.
 - Basic project skeleton: backend/frontend
 - Simple UI
