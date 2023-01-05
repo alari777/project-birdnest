@@ -5,15 +5,16 @@
 - [Objective](#objective)  
 
 [Sprints](#sprints)  
-[How to start](#how_to_start)
-[Tests](#tests)
-[GitHub actions](#github_actions)
-[How it works](#how_it_works)
-- [Description](#description)
-- [Scheme client-server](#scheme_client_server)
-- [Structure of project](#structure_of_project)
-[In conclusion](#in_conclusion)
-[Thank you!](#thank_you)
+[How to start](#how_to_start)  
+[Tests](#tests)  
+[GitHub actions](#github_actions)  
+[How it works](#how_it_works)  
+- [Description](#description)  
+- [Scheme client-server](#scheme_client_server)  
+- [Structure of project](#structure_of_project)  
+
+[In conclusion](#in_conclusion)  
+[Thank you!](#thank_you)  
 
 
 # <a name="getting_started">Getting Started</a>
