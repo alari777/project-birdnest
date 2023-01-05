@@ -1,12 +1,22 @@
-# Getting Started
+# Table of content  
 
-## Introduction
+[Getting Started](#getting_started)  
+- [Introduction](#introduction)
+- [Objective](#objective)  
+
+[Sprints](#sprints)  
+[How to start](#how_to_start)
+
+
+# <a name="getting_started">Getting Started</a>
+
+## <a name="introduction">Introduction</a>
 
 This is "Project Birdnest", that is made to monitor no drone zone (NDZ). 
 
 To build and deploy a web application which lists all the pilots who recently violated the NDZ perimeter.
 
-## Objective
+## <a name="objective">Objective</a>
 
 - Persist the pilot information for 10 minutes since their drone was last seen by the equipment. 
 - Display the closest confirmed distance to the nest.
@@ -14,7 +24,7 @@ To build and deploy a web application which lists all the pilots who recently vi
 - Immediately show the information from the last 10 minutes to anyone opening the application
 - Not require the user to manually refresh the view to see up-to-date information.
 
-# Sprints
+# <a name="sprints">Sprints</a>
 
 I have decided to work on this project as if it is real production project. For this reason I have decided to separate this task into few sprints with clear deadlines and understanding what happen on each sprint:
 - Investigation and choosing set of tools and the approach how to do this project.
@@ -72,19 +82,25 @@ I have decided to work on this project as if it is real production project. For 
    Also, I think it will a good thing to use Postman in order to keep frontend endpoints because
    this application can be expanded, in theory.
 
-# How to start
+# <a name="how_to_start">How to start</a>
 
 This public project works at NextJS with TypeScript supporting.
 
-You have next ones way how to run this application:
-- You can see directly and now how this application works at: 
-  - Or at [Project Birdnest at custom my instance](http://34.23.45.250/). It is my custom instance at `google.cloud` where is running dicker container with this project. That is a better way to see how this application works.
-  - Or at [Project Birdnest at Vercel](https://project-birdnest.vercel.app/). It is subdomain of `vercel` company ([https://vercel.com](https://vercel.com/) , which provides and supports NextJS). The application was deployed at this subdomain too.
-- Please create new folder at your local machine.  
-Be sure that you have:
-  - [nodejs](https://nodejs.org/en/). Open your terminal and type `node --version`. At least `NodeJS` version is 16.0.0 or higher 
-  - `npm`. Open your terminal and type `npm --version`. At least `npm` version is 8.1.2 or higher
-Go inside it and run next command:  
+You have few ways how to run this application:
+- You can open: 
+  - Or [Project Birdnest at custom my instance](http://34.23.45.250/).  
+  It is custom instance at `google.cloud` where is running docker container with this project inside.  
+  That is a better way to see how this application works.
+  - Or [Project Birdnest at Vercel](https://project-birdnest.vercel.app/).  
+  It is subdomain of `Vercel` company.  
+  _[https://vercel.com](https://vercel.com/), which provides and supports NextJS._    
+  This application was deployed at this subdomain too.
+- Next way is on local machine. Create a new folder on your local machine.  
+  - System Requirements:
+    - [NodeJS](https://nodejs.org/en/).  
+  Open your terminal and type `node --version`.  
+  It has to be 14.6.0 or higher.
+  - Go inside this folder and run next commands:  
 ```
 # Clone this repository  
 git clone https://github.com/alari777/project-birdnest.git .`
@@ -96,14 +112,15 @@ npm ci
 # This application will start on [http://localhost:3000](http://localhost:3000)    
 npm run dev 
 
-# In order to build application complete please  
+# In order to build application run next commands  
 npm build  
 npm run
 ```
-- Using `Docker`. For this one you need to install Docker at your machine (server).
-[Docker](https://docs.docker.com/get-docker/).  
-Then lets go on `https://github.com/alari777/project-birdnest/pkgs/container/project-birdnest%2Fproject-birdnest`.  
-Open your terminal and please type next commands:  
+- Using `Docker`.  
+For this one you need to install Docker on your machine/server.
+_What is [Docker](https://docs.docker.com/get-docker/) you can find here._  
+Then go on `https://github.com/alari777/project-birdnest/pkgs/container/project-birdnest%2Fproject-birdnest`.    
+Open your terminal and please run next commands:  
 ```bash
 # To pull latest docker image of this project
 sudo docker pull ghcr.io/alari777/project-birdnest/project-birdnest:latest
@@ -123,10 +140,11 @@ sudo docker ps
 # To see logs (for example last 300 log-records) in real time for this container called `bird`
 sudo docker logs --tail 300 -f bird
 ```  
-You can open and see hot this application works at:
+P.S.  
+Remind that you can open and see how this application works at:
 [Project Birdnest at custom my instance](http://34.23.45.250/)
 
-# Tests
+# <a name="tests">Tests</a>
 
 To start tests: `npm run test`  
 
@@ -138,36 +156,37 @@ To start coverage of tests: `npm run test:coverage`
 
 # GitHub actions
 
-After creating `pull request` this project runs two GitHub actions: `run_tests` and `push_docker`.
-You can find them in folder `.github/workflows/`.
-
+After creating new `pull request` two GitHub actions: `run_tests` and `push_docker` are run.  
+You can find them in folder `.github/workflows/`:  
 - Action `run_tests` runs tests.
 - Action `push_docker` creates Docker image of this project and pushes it in GitHub package.
-This action depends on `run_tests`
+This action depends on `run_tests`.
 
-# How it works
+# <a name="how_it_works">How it works</a>
 
 According to the conditions of the task the snapshot of all the drones is taken on an area of 500 by 500 meters and is updated approximately once every 2 seconds.
-The no-fly zone or in other words `no drone zone (**NDZ**)` is a circle with a radius of 100 meters.
+The no-fly zone or in other words `no drone zone (NDZ)` is a circle with a radius of 100 meters.
 The origin is point with next one coordinate `x0: 250000, y0: 250000`.
 
 ```
-A little note: 500 meters is 500 * 100 * 10 = 500,000 millimeters, so the picture is taken on an area of 500,000x500,000 millimeters.
+A little note: 500 meters is 500 * 100 * 10 = 500,000 square millimeters, so the picture is taken on an area of 500,000x500,000 millimeters.
 The no-fly zone is a circle with a radius of 100 * 100 * 10 = 100,000 millimeters.
 Thus, we make the coordinates of the drones and cordinates from snapshot to "same origin system".
 ```
 
 Each drone, according to the specification of the task, has coordinates. 
 The origin of coordinates is x0: 250000 and y0: 250000. 
-To understand whether the drone is a violator necessary to use the next formula: `sqrt((x0 - x)*(x0 - x) + (y0 - y)*(y0 - y))`.
-`x0 and y0` - it is the origin and `x and y` - it is coordinate of current drone.
+To understand whether the drone is a violator necessary to use the next formula: `sqrt((x0 - x)*(x0 - x) + (y0 - y)*(y0 - y))`.  
 
-If this number is less than 100 * 100 * 10 (that's a hundred meters radius), then the drone is a violator.
+_Actually it is Pythagoras theorem in order to find a hypotenuse.  
+`x0 and y0` - it is the origin and `x and y` - it is coordinate of current drone._  
 
-After we got the drones violators we can get detailed information about the pilot of each these drones.
+If calculated value is less than 100 * 100 * 10 (that's a hundred meters radius), then the drone is a violator.
 
-If the response has a code 200 (which means that we got a response from the API), then we can do two operations with the storage (pilots of drones violators are stored there):
-- If there is no pilot, then we can add it
+Thus, we got array of drones violators and next we can get detailed information about each pilot.
+
+If the response of the pilot (assignments.reaktor.com/birdnest/pilots/:serialNumber) has a code 200 (which means that we got a response from the API), then we can do two operations with the storage (pilots of drones violators are stored there):
+- If there is no pilot, then we can add it.
 - If there is a pilot, then we need to check if its CURRENT distance is closer to the nest than his PREVIOUS distance. 
 If it is true, so we need to update information about this pilot in our `Map collection`. 
 If it is false so we do nothing. 
@@ -179,13 +198,15 @@ Thus, we remove from the `Map collection` "records about intruder pilots" that a
 As a result, we have a collection of violators pilots for the last 10 minutes and who have the closest distance to the nest saved.
 Thus, we form the response object to the client.
 
-## Scheme
+Frontend provides `polling` per 2 seconds to the server in order to get actual information about all available pilots violators.
 
-Below you can see the scheme created at Figma how this application works.  
+## <a name="scheme_client_server">Scheme client-server</a>
+
+Below you can see a diagram created in Figma of how the clients (frontend) and the server (backend) interact.  
 
 ![figma diagram variant #1](./screenshots/readme/diagram/figma-diagram-1.png)
 
-## Structure of project
+## <a name="structure_of_project">Structure of project</a>
 
 - Frontend side:
   - Index page consists `Header`, `Home` and `Footer` components. 
@@ -207,3 +228,10 @@ Below you can see the scheme created at Figma how this application works.
   - Each script has own tests
 
 ![backend side](./screenshots/readme/structure-of-project/backend-side.PNG)
+
+# <a name="in_conclusion">In conclusion</a>
+
+I am interested in this project I am going to support and improve this project e.g. to add e2e tests, other ways of fetching data etc.  
+Also it is good thing to implement few additional features like radar, new UI, admin panel, a page about pilot etc.
+
+# <a name="thank_you">Thank you!</a>
