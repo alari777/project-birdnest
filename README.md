@@ -215,7 +215,7 @@ Frontend provides `polling` per 2 seconds to the server in order to get actual i
 
 Below you can see a diagram created in Figma of how the clients (frontend) and the server (backend) interact.  
 
-![figma diagram variant #1](./screenshots/readme/diagram/figma-diagram-1.png)
+![figma diagram variant #2](./screenshots/readme/diagram/figma-diagram-2.png)
 
 ## <a name="structure_of_project">Structure of project</a>
 
