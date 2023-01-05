@@ -6,6 +6,14 @@
 
 [Sprints](#sprints)  
 [How to start](#how_to_start)
+[Tests](#tests)
+[GitHub actions](#github_actions)
+[How it works](#how_it_works)
+- [Description](#description)
+- [Scheme client-server](#scheme_client_server)
+- [Structure of project](#structure_of_project)
+[In conclusion](#in_conclusion)
+[Thank you!](#thank_you)
 
 
 # <a name="getting_started">Getting Started</a>
@@ -154,7 +162,7 @@ To start coverage of tests: `npm run test:coverage`
 
 ![tests coverage](./screenshots/readme/tests/tests-coverage.PNG)
 
-# GitHub actions
+# <a name="github_actions">GitHub actions</a>
 
 After creating new `pull request` two GitHub actions: `run_tests` and `push_docker` are run.  
 You can find them in folder `.github/workflows/`:  
@@ -163,6 +171,8 @@ You can find them in folder `.github/workflows/`:
 This action depends on `run_tests`.
 
 # <a name="how_it_works">How it works</a>
+
+## <a name="description">Description</a>
 
 According to the conditions of the task the snapshot of all the drones is taken on an area of 500 by 500 meters and is updated approximately once every 2 seconds.
 The no-fly zone or in other words `no drone zone (NDZ)` is a circle with a radius of 100 meters.
