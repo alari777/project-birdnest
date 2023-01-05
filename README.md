@@ -45,29 +45,30 @@ I have decided to work on this project as if it is real production project. For 
 - Deploy at Vercel
 - Docker
   - Dockerfile
-  - One more GitHub action: `Docker push` at GitHub package
+  - One more GitHub action: `Docker push` in GitHub package
 - Readme.md, some refactoring and PostMan
 
 
 1. First sprint.  
    I have decided to take NextJs because this variant has SSR and React.
-   And store is just `Map() collection` at JS.  
-   I had some variants like PHP, PHP+JS, React+ExpressJS or just React with polling.
-   For storing data I can take DB like MySQL or MongoDB or noSQL like Redis.
-   Also, I had variant where is using Redis pub/sub.  
-   In my opinion all these ways are too redundant and complex, and I can use better way.  
-   Actually, I think it is NextJS with SSR+React under hood. Map collection is a good way in order to store these data because
-   To use any DBs is also too redundant and complex for this task.
+   Store is just `Map collection` at JS.  
+   I had few variants how to do this project: PHP, PHP+JS+cron, React+ExpressJS or just React with polling.  
+   To store data I could take DB like MySQL or MongoDB or noSQL like Redis.  
+   Also, I had variant where was using Redis pub/sub.
+  
+   In my opinion all these ways are too redundant and complex, and I can take better way.    
+   Actually, I think it is NextJS (NextJS is based on React; also NextJS provides SSR too).  
+   `Map collection` is a good way in order to store data because to use any DBs is also too redundant and complex for this task.
 
 2. Next one sprint.  
-   That was development of both sides.
+   That was development of both sides: backend and frontend.
 
 3. Next one sprint.  
    That was adding basic UI in order to show table with violators-pilots.
-   Also, there you can find expended version (just to use checkbox) where is providing some additional information about each pilot violator.
+   Also, there you can find expended version (just use checkbox!) where is providing additional information about each pilot violator.
 
 4. Next one sprint.  
-   TypeScript is good solution in order to get strict typing. We can add it at any step of project.
+   TypeScript is a good solution in order to get strict typing. We can add it at any step of project.
 
 5. Next one sprint.  
    I think that a better way to add `tests` before development, but I had investigating what kind of development I have to choose.
@@ -76,14 +77,14 @@ I have decided to work on this project as if it is real production project. For 
    It is very important thing to run tests before merge with main branch on GitHub.
 
 7. Next one sprint.  
-   Vercel is mother company for NextJS so this company provides deploy service for applications which were created at NextJs.
+   Vercel is a mother company for NextJS so this company provides deploy service for applications which were created at NextJs.
    This their feature goes from the box.
    It is a good thing because application is hosted at free hosting and Vercel system gets new commits from GitHub automatically and then redeploy application.
 
 8. Next one sprint.  
-   Docker is very good tool to run application on any machine. For example, I have run this application
-   on gcloud instance in few steps.
-   I use simple Dockerfile because this application provides just one container. If application has some containers so in that case a better way to use `docker-compose`.
+   Docker is very good tool to run application on any machine. 
+   For example, I have run this application on gcloud instance in few steps.
+   I use simple `Dockerfile` because this application provides just one container. If application has some containers so in that case a better way to use `docker-compose`.
 
 9. Next one sprint.  
    It is necessary to fill this README.md.
@@ -216,6 +217,32 @@ Frontend provides `polling` per 2 seconds to the server in order to get actual i
 Below you can see a diagram created in Figma of how the clients (frontend) and the server (backend) interact.  
 
 ![figma diagram variant #2](./screenshots/readme/diagram/figma-diagram-2.png)
+
+I would like to explain this scheme in short.  
+
+
+- Left side (backend side):
+  - Service works with third party API and set/update data in store.  
+  - When backend side gets a frontend request (via route) so special function returns prepared data from `Map collection` (it is store). 
+
+Other words, backend is separated on few independent structures like service, store and route.  
+These are loosely coupled structures that are easy to test, refactor, and maintenance to.  
+For example, if we would to add new fetching from third party API then it is easy. We can update current service or just add new and other structures will not be affected.  
+They will not know about this upgrading.
+
+- Center side (these are just requests from frontend clients to backend and responses back)
+
+- Right side (frontend side):
+  - There are a lot of clients. They make a lot of requests to backend using `polling`.
+
+- Block on top:
+  - These are `GET endpoints` of third party API in order to get: XML with drones and pilot by `serial ID`.  
+  This block is for service structure.
+
+Thus, we get:
+ - Loosely coupled structures.
+ - Data Consistency. Each client gets the same set of data in any time as other users.
+ - It is easy to maintenance, support, scale and refactoring.
 
 ## <a name="structure_of_project">Structure of project</a>
 
