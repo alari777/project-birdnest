@@ -20,10 +20,13 @@
 # <a name="getting_started">Getting Started</a>
 
 ## <a name="introduction">Introduction</a>
+_It is spoiler, you can see how this application works here [Project Birdnest at custom my instance](http://34.23.45.250/) or here [Project Birdnest at Vercel](https://project-birdnest.vercel.app/)_
 
 This is "Project Birdnest", that is made to monitor no drone zone (NDZ). 
 
 To build and deploy a web application which lists all the pilots who recently violated the NDZ perimeter.
+
+You can see full text of this assigment at the next page [Birdnest Assignment](https://assignments.reaktor.com/birdnest).  
 
 ## <a name="objective">Objective</a>
 
@@ -37,16 +40,16 @@ To build and deploy a web application which lists all the pilots who recently vi
 
 I have decided to work on this project as if it is real production project. For this reason I have decided to separate this task into few sprints with clear deadlines and understanding what happen on each sprint:
 - Investigation and choosing set of tools and the approach how to do this project.
-- Basic project skeleton: backend/frontend
-- Simple UI
-- TypeScript
-- Tests
-- GitHub action: `tests`
-- Deploy at Vercel
-- Docker
-  - Dockerfile
-  - One more GitHub action: `Docker push` in GitHub package
-- Readme.md, some refactoring and PostMan
+- Basic project skeleton: backend/frontend.
+- Simple UI.
+- TypeScript.
+- Tests.
+- GitHub action: `tests`.
+- Deploy at Vercel.
+- Docker:
+  - Dockerfile.
+  - One more GitHub action: `Docker push` in GitHub package.
+- Readme.md, some refactoring and PostMan.
 
 
 1. First sprint.  
@@ -103,7 +106,7 @@ You have few ways how to run this application:
   That is a better way to see how this application works.
   - Or [Project Birdnest at Vercel](https://project-birdnest.vercel.app/).  
   It is subdomain of `Vercel` company.  
-  _[https://vercel.com](https://vercel.com/), which provides and supports NextJS._    
+  _[Vercel](https://vercel.com/), which provides and supports NextJS._    
   This application was deployed at this subdomain too.
 - Next way is on local machine. Create a new folder on your local machine.  
   - System Requirements:
