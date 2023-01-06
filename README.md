@@ -258,7 +258,7 @@ Thus, we get:
 - Frontend side:
   - Index page consists `Header`, `Home` and `Footer` components. 
   `Header` and `Footer` are very simple static functional components.
-  They have snapshots tests. You can find them in folder `/components/__snapshots__`.
+  They have `snapshots` tests.
   - `Home` component includes child component called `TableViolators`. 
   This table where is showing the current violators.
   - One util function in the folder `/utils/formatTime` defines how to show time to user and what is form of it at the screen.

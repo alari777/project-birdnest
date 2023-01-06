@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FetchResultPilotsType, ViolatorType } from '../types/violators.type';
-import TableViolators from '../components/TableViolators';
+import TableViolators from '../components/TableViolators/TableViolators';
 import { formatTime } from '../utils/formatTime/formatTime';
 
 const Home = () => {

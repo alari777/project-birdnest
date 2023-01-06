@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { ViolatorType } from '../types/violators.type';
-import { formatTime } from '../utils/formatTime/formatTime';
+import { ViolatorType } from '../../types/violators.type';
+import { formatTime } from '../../utils/formatTime/formatTime';
+import styles from './TableViolators.module.scss';
 
 type TableViolatorsProps = {
   violators: ViolatorType[];
@@ -12,7 +13,7 @@ const TableViolators: FC<TableViolatorsProps> = ({
   extendedView,
 }) => {
   return (
-    <table id='listViolators'>
+    <table className={styles.table} id='listViolators'>
       <thead>
         <tr>
           {extendedView && (

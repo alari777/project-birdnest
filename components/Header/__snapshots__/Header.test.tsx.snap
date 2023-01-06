@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render header 1`] = `
-<header>
+<header
+  class="header"
+>
   PROJECT BIRDNEST: MONITORING SYSTEM
 </header>
 `;
