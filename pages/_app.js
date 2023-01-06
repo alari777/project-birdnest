@@ -1,5 +1,5 @@
-import Layout from '../components/Layout'
-import '../styles/globals.css'
+import Layout from '../components/Layout/Layout';
+import '../styles/globals.scss';
 
 const MyApp = ({ Component, pageProps }) => {
   return (
@@ -8,7 +8,7 @@ const MyApp = ({ Component, pageProps }) => {
         <Component {...pageProps} />
       </main>
     </Layout>
-  )
-}
+  );
+};
 
-export default MyApp
+export default MyApp;

@@ -1,0 +1,14 @@
+.table {
+  border: 1px solid black;
+  max-width: 100%;
+  tr {
+    th {
+      padding: 7px;
+      border: 1px solid black;
+    }
+    td {
+      border: 1px solid black;
+      padding: 7px;
+    }
+  }
+}
