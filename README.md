@@ -1,6 +1,7 @@
 # Table of content  
 
-[Getting Started](#getting_started)  
+[Getting Started](#getting_started)
+- [Spoiler](#spoiler)
 - [Introduction](#introduction)
 - [Objective](#objective)  
 
@@ -19,9 +20,14 @@
 
 # <a name="getting_started">Getting Started</a>
 
-## <a name="introduction">Introduction</a>
-_It is spoiler, you can see how this application works here [Project Birdnest at custom my instance](http://34.23.45.250/) or here [Project Birdnest at Vercel](https://project-birdnest.vercel.app/)_
+## <a name="spoiler">Spoiler</a>
+It is spoiler. You can see how this application works here:
+- [Project Birdnest at custom my instance](http://34.23.45.250/).  
+In that case it does not need to warm, application works constantly.
+- [Project Birdnest at Vercel](https://project-birdnest.vercel.app/).  
+In that case it'll need to warm before being evaluated.
 
+## <a name="introduction">Introduction</a>
 This is "Project Birdnest", that is made to monitor no drone zone (NDZ). 
 
 To build and deploy a web application which lists all the pilots who recently violated the NDZ perimeter.
