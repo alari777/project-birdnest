@@ -29,9 +29,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchData().then();
-    const id = setInterval(() => {
-      fetchData().then();
+    const id = setInterval(async () => {
+      await fetchData();
     }, 2000);
 
     return () => clearInterval(id);
