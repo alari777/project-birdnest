@@ -131,9 +131,9 @@ npm ci
 # This application will start on [http://localhost:3000](http://localhost:3000)    
 npm run dev 
 
-# In order to build application run next commands  
-npm build  
-npm run
+# In order to build application run  
+npm run build  
+npm start
 ```
 - Using `Docker`.  
 For this one you need to install Docker on your machine/server.
